@@ -6,4 +6,4 @@ Thành viên: <br />
 2.<MSSV>	  Trần Thị Vân Anh <br /> 
 3.<MSSV>	  Trần Huy Hoàng Anh <br />
 4.20225600	Đàm Thanh Bách <br />
-5.<MSSV>	  Mạc Thanh Bình <br />
+5.20225790	Mạc Thanh Bình <br />
