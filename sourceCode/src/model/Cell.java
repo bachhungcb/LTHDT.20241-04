@@ -1,4 +1,9 @@
 package model;
 
-public class Cell {
+import gems.Gems;
+
+import java.util.List;
+
+public abstract class Cell {
+
 }
