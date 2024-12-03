@@ -7,4 +7,5 @@ public abstract class Gems {
 
     public abstract int getValue();
     public abstract Cell getPosition();
+    public abstract String toString();
 }
