@@ -7,15 +7,18 @@ import gems.Gems;
 public class halfCircle extends Cell {
 	private int position;
 	private List<Gems> gems;
-
+	
+	//Phương thức thêm sỏi vào bán cầu
 	public void addGem(Gems gems) {
 		gems.add(gem);
 	}
-
-	public void removeGem() {
-
+	
+	//Phương thức xóa sỏi khỏi bán cầu
+	public void removeGem(Gems gem) {
+		gems.remove(gem);
 	}
-
+	
+	
 	public int getGemsCount() {
 		return 0;
 	}
