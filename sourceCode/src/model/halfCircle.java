@@ -9,7 +9,7 @@ public class halfCircle extends Cell {
 	private List<Gems> gems;
 
 	public void addGem(Gems gems) {
-
+		gems.add(gem);
 	}
 
 	public void removeGem() {
