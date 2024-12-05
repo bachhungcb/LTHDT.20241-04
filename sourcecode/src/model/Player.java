@@ -82,5 +82,17 @@ public class Player {
         this.numOfGemsBorrowed = numOfGemsBorrowed;
     }
 
-
+    @Override
+    public String toString(){
+        return "Player{" +
+                "playerID=" + playerID +
+                ", name='" + name + '\'' +
+                ", score=" + score +
+                ", isUpperRow=" + isUpperRow +
+                ", inTurn=" + inTurn +
+                ", numOfGemsInHand=" + numOfGemsInHand +
+                ", numOfGemsLent=" + numOfGemsLent +
+                ", numOfGemsBorrowed=" + numOfGemsBorrowed +
+                '}';
+    }
 }
