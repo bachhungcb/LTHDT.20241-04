@@ -9,7 +9,7 @@ public class halfCircle extends Cell {
 	private List<Gems> gems;
 	
 	//Phương thức thêm sỏi vào bán cầu
-	public void addGem(Gems gems) {
+	public void addGem(Gems gem) {
 		gems.add(gem);
 	}
 	
