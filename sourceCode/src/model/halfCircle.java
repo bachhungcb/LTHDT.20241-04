@@ -23,9 +23,8 @@ public class halfCircle extends Cell {
 		return gems.size();
 	}
 	
-	
+	//Phương thức kiểm tra bán cầu có rỗng không
 	public boolean isEmpty() {
-		return false;
+		return gems.isEmpty();
 	}
-
 }
