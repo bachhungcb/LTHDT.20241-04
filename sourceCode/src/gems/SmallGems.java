@@ -13,12 +13,11 @@ public class SmallGems extends Gems {
 	}
 	@Override
 	public Cell getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		return position;
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
+		// Co phai override method toString ?
 		return null;
 	}
 	
