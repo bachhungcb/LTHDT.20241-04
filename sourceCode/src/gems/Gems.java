@@ -3,9 +3,10 @@ package gems;
 import model.Cell;
 
 public abstract class Gems {
-    private Cell position;
+    protected Cell position;
 
     public abstract int getValue();
     public abstract Cell getPosition();
     public abstract String toString();
 }
+
