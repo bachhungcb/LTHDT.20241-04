@@ -18,11 +18,12 @@ public class halfCircle extends Cell {
 		gems.remove(gem);
 	}
 	
-	
+	//Phương thức lấy số sỏi trong bán cầu
 	public int getGemsCount() {
-		return 0;
+		return gems.size();
 	}
-
+	
+	
 	public boolean isEmpty() {
 		return false;
 	}
