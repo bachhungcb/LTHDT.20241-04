@@ -4,13 +4,12 @@ import model.Cell;
 
 public class SmallGems extends Gems {
 	private int value = 5;
-	public void smallGems(Cell position) {
-		
+	public SmallGems(Cell position) {
+		this.position = position;
 	}
 	@Override
 	public int getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return value;
 	}
 	@Override
 	public Cell getPosition() {
