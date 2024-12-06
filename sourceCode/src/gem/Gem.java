@@ -1,4 +1,4 @@
-package gems;
+package gem;
 
 import model.Cell;
 
