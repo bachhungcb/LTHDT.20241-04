@@ -3,7 +3,7 @@ package gems;
 import model.Cell;
 
 public class SmallGems extends Gems {
-	private int value = 5;
+	private int value = 1;
 	public SmallGems(Cell position) {
 		this.position = position;
 	}
