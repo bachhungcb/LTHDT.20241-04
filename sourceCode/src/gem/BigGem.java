@@ -1,12 +1,12 @@
-package gems;
+package gem;
 
 import model.Cell;
 
-public class BigGems extends Gems {
+public class BigGem extends Gem {
     private int value;
 
     // Constructor
-    public BigGems(Cell position, int value) {
+    public BigGem(Cell position, int value) {
         this.position = position;
         this.value = value;
     }
@@ -26,7 +26,7 @@ public class BigGems extends Gems {
     // Implement toString
     @Override
     public String toString() {
-        return "BigGems{" +
+        return "BigGem{" +
                "position=" + position +
                ", value=" + value +
                '}';
