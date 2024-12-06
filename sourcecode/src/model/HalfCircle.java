@@ -4,7 +4,7 @@ import java.util.List;
 
 import gems.Gems;
 
-public class halfCircle extends Cell {
+public class HalfCircle extends Cell {
 	private int position;
 	private List<Gems> gems;
 	
