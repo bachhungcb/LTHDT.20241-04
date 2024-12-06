@@ -3,30 +3,30 @@ package gem;
 import model.Cell;
 
 public class BigGem extends Gem {
-    private int value;
+    // Không cần khai báo value trong constructor nữa, vì giá trị luôn là 5
+    private final int value = 5;
 
     // Constructor
-    public BigGem(Cell position, int value) {
-        this.position = position;
-        this.value = value;
+    public BigGem(Cell position) {
+        this.position = position;  // Chỉ cần truyền vị trí vào
     }
 
     // Implement getValue
     @Override
     public int getValue() {
-        return value;
+        return value;  // Luôn trả về 5
     }
 
     // Implement getPosition
     @Override
     public Cell getPosition() {
-        return position;
+        return position;  // Trả về vị trí
     }
 
     // Implement toString
     @Override
     public String toString() {
-        return "BigGem{" +
+        return "BigGems{" +
                "position=" + position +
                ", value=" + value +
                '}';
