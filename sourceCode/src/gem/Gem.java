@@ -2,7 +2,7 @@ package gems;
 
 import model.Cell;
 
-public abstract class Gems {
+public abstract class Gem {
     protected Cell position;
 
     public abstract int getValue();
