@@ -1,8 +1,8 @@
-package gems;
+package gem;
 
 import model.Cell;
 
-public class SmallGems extends Gems {
+public class SmallGems extends Gem {
 	private int value = 1;
 	public SmallGems(Cell position) {
 		this.position = position;
