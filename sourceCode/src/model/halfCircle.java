@@ -6,7 +6,7 @@ import gems.Gems;
 
 public class halfCircle extends Cell {
 	private int position;
-	private List<Gems> gems;
+	private List<Gems> gems; 
 	
 	//Phương thức thêm sỏi vào bán cầu
 	public void addGem(Gems gem) {
