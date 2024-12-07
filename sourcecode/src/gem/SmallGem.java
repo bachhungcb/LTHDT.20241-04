@@ -2,9 +2,9 @@ package gem;
 
 import model.Cell;
 
-public class SmallGems extends Gem {
+public class SmallGem extends Gem {
 	private int value = 1;
-	public SmallGems(Cell position) {
+	public SmallGem(Cell position) {
 		this.position = position;
 	}
 	@Override
