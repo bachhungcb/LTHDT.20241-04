@@ -1,20 +1,20 @@
 package model;
 
-import gems.Gems;
+import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Square {
 
     private int position;
-    private List<Gems> gems;
+    private List<Gem> gems;
 
     public Square(int position) {
         this.position = position;
         this.gems = new ArrayList<>();
     }
 
-    public void addGem(Gems gem) {  
+    public void addGem(Gem gem) {
         // TODO: aaaaaaaaaaa
     }
 
