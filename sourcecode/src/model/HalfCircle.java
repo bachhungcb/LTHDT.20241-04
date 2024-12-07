@@ -2,19 +2,19 @@ package model;
 
 import java.util.List;
 
-import gems.Gems;
+import gem.Gem;
 
 public class HalfCircle extends Cell {
 	private int position;
-	private List<Gems> gems;
+	private List<Gem> gems;
 	
 	//Phương thức thêm sỏi vào bán cầu
-	public void addGem(Gems gem) {
+	public void addGem(Gem gem) {
 		gems.add(gem);
 	}
 	
 	//Phương thức xóa sỏi khỏi bán cầu
-	public void removeGem(Gems gem) {
+	public void removeGem(Gem gem) {
 		gems.remove(gem);
 	}
 	
