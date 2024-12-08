@@ -60,6 +60,14 @@ public class Game {
     //not to calculate the final score
     private int calculateScore(Cell cell){
         int score = 0;
+        List<Gem> gems = cell.getGems();
+
+        if (gems != null) {
+            for (Gem gem : gems) {
+                score += gem.getValue();
+            }
+        }
+
         return score;
     }
 }
