@@ -5,6 +5,8 @@ public abstract class Cell {
     private List<Gem> gems;
     private int position;
     private boolean isUpperRow;
+
+    public abstract void addGem(Gem gem);
     //getter
     public List<Gem> getGems() {
         return gems;
