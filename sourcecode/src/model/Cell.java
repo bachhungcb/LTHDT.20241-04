@@ -5,7 +5,7 @@ public abstract class Cell {
     private List<Gem> gems;
     private int position;
     private boolean isUpperRow;
-
+    //getter
     public List<Gem> getGems() {
         return gems;
     }
@@ -17,6 +17,16 @@ public abstract class Cell {
     public boolean isUpperRow() {
         return isUpperRow;
     }
+    //setter
+    public void setGems(List<Gem> gems) {
+        this.gems = gems;
+    }
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
+    public void setUpperRow(boolean upperRow) {
+        isUpperRow = upperRow;
+    }
 }
