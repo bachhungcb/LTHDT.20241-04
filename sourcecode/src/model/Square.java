@@ -15,11 +15,11 @@ public class Square {
     }
 
     public void addGem(Gem gem) {
-        // TODO: aaaaaaaaaaa
+    	
     }
 
     public void removeGem() {
-        // TODO: 
+      
     }
 
     public int getGemsCount() {
