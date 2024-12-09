@@ -14,9 +14,10 @@ public class Square {
         this.gems = new ArrayList<>();
     }
 
-    public void addGem(Gem gem) {
-    	
-    }
+	//Phương thức thêm sỏi vào bán cầu
+	public void addGem(Gem gem) {
+		gems.add(gem);
+	}
 
     public void removeGem() {
       
@@ -36,6 +37,14 @@ public class Square {
 
         return true;
     }
+    
+    
+
+
+
+  
+
+    
 }
 
     
