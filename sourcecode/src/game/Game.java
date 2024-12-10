@@ -24,8 +24,8 @@ public class Game {
         playGame();
 
     }
-    private boolean checkGameOver() {
-        return Cell.isGameOver();
+     private boolean checkGameOver() {
+        return Cell.isGameOver(board.getCells());
     }
  // Method to simulate playing the game
     private void playGame() {
