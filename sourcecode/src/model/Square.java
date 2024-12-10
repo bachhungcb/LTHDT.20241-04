@@ -4,7 +4,7 @@ import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Square {
+public class Square extends Cell{
 
     private int position;
     private List<Gem> gems;
@@ -20,13 +20,9 @@ public class Square {
     }
     
     //Phương thức xóa 1 viên sỏi khỏi ô vuông nếu có
-    public boolean removeGem() {
-        if (gems.size() > 0) {
-            gems.remove(gems.size() - 1);
-            return true;
-        }
-        return false;
-    }
+	public void removeGem(Gem gem) {
+		gems.remove(gem);
+	}
 
     public int getGemsCount() {
 
@@ -41,15 +37,5 @@ public class Square {
         return true;
     }
 
-    public static void main(String[] args) {
-        Square square = new Square(1);
-        Gem gem1 = new Gem();
-        Gem gem2 = new Gem();
-        square.addGem(gem1);
-        square.addGem(gem2);
-        System.out.println("Add 2 gems to square 1");
-        square.removeGem();
-        System.out.println("Remove 1 gem from square 1");
-    }
 
 }
