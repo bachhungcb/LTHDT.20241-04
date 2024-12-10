@@ -62,7 +62,6 @@ public abstract class Cell {
     public static boolean isGameOver(List<Cell> cells) {
         boolean upperHalfCircleEmpty = true;
         boolean lowerHalfCircleEmpty = true;
-
         // Check the status of the half-circle cells
         for (Cell cell : cells) {
             if (cell.isHalfCircle()) {
@@ -84,6 +83,7 @@ public abstract class Cell {
 
         // The game ends if both half-circle cells are empty
         return upperHalfCircleEmpty && lowerHalfCircleEmpty;
+
     }
 }
 
