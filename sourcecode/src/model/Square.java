@@ -47,6 +47,8 @@ public class Square {
         square.addGem(gem1);
         square.addGem(gem2);
         System.out.println("Add 2 gems to square 1");
+        square.removeGem();
+        System.out.println("Remove 1 gem from square 1");
     }
 
 }
