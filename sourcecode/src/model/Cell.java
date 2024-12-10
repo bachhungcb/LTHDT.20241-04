@@ -42,8 +42,29 @@ public abstract class Cell {
 
     public abstract boolean isEmpty();
 
-    public boolean isGameOver(){
+    public static boolean isGameOver(){
         //TODO: check 2 HalfCircle isEmpty()
+        /*
+        List<Cell> cells = getCellsFromGameboard(); // Replace with actual method to retrieve cells
+
+    // Ensure there are exactly two HalfCircle cells
+    int halfCircleCount = 0;
+    for (Cell cell : cells) {
+        if (cell instanceof HalfCircle) {
+            halfCircleCount++;
+            if (!cell.isEmpty()) {
+                return false; // Game is not over if any HalfCircle is not empty
+            }
+        }
+    }
+
+    // Game over if exactly two HalfCircle cells are found and both are empty
+    if (halfCircleCount == 2) {
+        Player winner = determineWinner(); // Replace with actual winner determination logic
+        System.out.println("Game Over! Winner: " + winner);
+        return true;
+    }
+         */
         return false;
     }
 
