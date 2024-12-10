@@ -19,11 +19,16 @@ public class Square {
         gems.add(gem);
     }
 
-    public void removeGem() {
-
+    public boolean removeGem() {
+        if (gems.size() > 0) {
+            gems.remove(gems.size() - 1);
+            return true;
+        }
+        return false;
     }
 
     public int getGemsCount() {
+
         return position;
     }
 
@@ -36,7 +41,7 @@ public class Square {
     }
 
     public static void main(String[] args) {
-    	Square square = new Square(1);
+        Square square = new Square(1);
         Gem gem1 = new Gem();
         Gem gem2 = new Gem();
         square.addGem(gem1);
