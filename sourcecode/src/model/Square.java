@@ -18,7 +18,8 @@ public class Square {
     public void addGem(Gem gem) {
         gems.add(gem);
     }
-
+    
+    //Phương thức xóa 1 viên sỏi khỏi ô vuông nếu có
     public boolean removeGem() {
         if (gems.size() > 0) {
             gems.remove(gems.size() - 1);
