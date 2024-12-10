@@ -11,32 +11,53 @@ public class Game {
     private Player player1;
     private Player player2;
     private GameBoard board;
+ // Constructor để khởi tạo game
+    public Game(Player player1, Player player2, GameBoard board) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.board = board;
+    }
+    public void startGame() {
+        player1.setInTurn(Math.random() < 0.5);
+        System.out.println("Game has started!");
+        System.out.println((player1.isInTurn() ? player1.getName() : player2.getName()) + " plays first.");
+        playGame();
 
-    private void startGame(){
-        //TODO: khởi tạo game
-        System.out.println("start game");
+    }
+    private boolean checkGameOver() {
+        return Cell.isGameOver();
+    }
+ // Method to simulate playing the game
+    private void playGame() {
+    	//TODO
+        // Assume there's a game loop here to continue until the game is over
+        while (!checkGameOver()) {
+            System.out.println((player1.isInTurn() ? player1.getName() : player2.getName()) + "'s turn.");
+            
+            // Player's turn logic
+            //makeMove();
+
+            switchTurn();  // Switch turn after each move
+        }
+
+        endGame();  // End the game when it's over
     }
 
-    private void endGame(){
-        //TODO: Kết thúc game
-        System.out.println("endGame");
+    private void endGame() {
+        System.out.println("Game has ended.");
+        determineWinner();
     }
 
-    //Hàm đổi lượt giữa 2 người chơi
-    private void switchTurn(){
-        if(player1.isInTurn()){
+    private void switchTurn() {
+        if (player1.isInTurn()) {
             player1.setInTurn(false);
             player2.setInTurn(true);
-        }else{
+        } else {
             player2.setInTurn(false);
             player1.setInTurn(true);
         }
     }
 
-    private boolean checkGameOver(){
-        //TODO:  kiểm tra lại cách List<Cell> cells ở gameboard có trả về HalfCircle không.
-        return false;
-    }
 
     //Check who is the winner by comparing score
     private Player determineWinner(){
