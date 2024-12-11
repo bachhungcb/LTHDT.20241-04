@@ -1,11 +1,11 @@
 package game;
 
+import java.util.List;
+
 import gem.Gem;
 import model.Cell;
 import model.GameBoard;
 import model.Player;
-
-import java.util.List;
 
 public class Game {
     private Player player1;
@@ -22,7 +22,7 @@ public class Game {
     	if(checkGameOver()) {
     		player1.setInTurn(false);
     		player2.setInTurn(false);
- 
+    		Player winner = determineWinner();
     		System.out.println("endGame");
     		
     	}
