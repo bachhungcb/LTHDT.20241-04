@@ -15,7 +15,7 @@ public class Square {
     }
 
     public void addGem(Gem gem) {
-        // TODO: aaaaaaaaaaa
+        // TODO: 
     }
 
     public void removeGem() {
