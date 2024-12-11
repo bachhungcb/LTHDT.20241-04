@@ -19,7 +19,13 @@ public class Game {
 
     private void endGame(){
         //TODO: Kết thúc game
-        System.out.println("endGame");
+    	if(checkGameOver()) {
+    		player1.setInTurn(false);
+    		player2.setInTurn(false);
+ 
+    		System.out.println("endGame");
+    		
+    	}
     }
 
     //Hàm đổi lượt giữa 2 người chơi
