@@ -4,7 +4,7 @@ import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Square {
+public class Square extends Cell{
 
     private int position;
     private List<Gem> gems;
@@ -14,28 +14,28 @@ public class Square {
         this.gems = new ArrayList<>();
     }
 
+    // Phương thức thêm sỏi vào bán cầu
     public void addGem(Gem gem) {
-        // TODO: aaaaaaaaaaa
+        gems.add(gem);
     }
-
-    public void removeGem() {
-        // TODO: 
-    }
+    
+    //Phương thức xóa 1 viên sỏi khỏi ô vuông nếu có
+	public void removeGem(Gem gem) {
+		gems.remove(gem);
+	}
 
     public int getGemsCount() {
-            return position;
-   
+
+        return position;
     }
 
     public boolean isEmpty() {
-            return false;
-        
+        return false;
     }
 
     public boolean isPickable() {
-
         return true;
     }
-}
 
-    
+
+}
