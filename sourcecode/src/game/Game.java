@@ -66,9 +66,7 @@ public class Game {
 
     private boolean checkGameOver(){
         //TODO:  kiểm tra lại cách List<Cell> cells ở gameboard có trả về HalfCircle không.
-        if(Cell.isGameOver(boảd.getCells)){
-            Player winner = determineWinner();
-            System.out.println("Game over! Winner: " + winner.toString());
+        if(Cell.isGameOver(board.getCells())){
             return true;
         }
         return false;
