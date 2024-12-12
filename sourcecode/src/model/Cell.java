@@ -1,16 +1,21 @@
 package model;
 import gem.Gem;
+import java.util.ArrayList;
 import java.util.List;
 public abstract class Cell {
     private List<Gem> gems;
     private int position;
     private boolean isUpperRow;
+    
     //constructor
-    public Cell() {
+    public Cell(int position , boolean isUpperRow) {
        //TODO: implement Cell constructor
+    	this.gems= new ArrayList<>();
+    	this.position=position;
+    	this.isUpperRow=isUpperRow;
+    	
     }
 
-    public abstract void addGem(Gem gem);
     //getter
     public List<Gem> getGems() {
         return gems;
@@ -35,16 +40,65 @@ public abstract class Cell {
     public void setUpperRow(boolean upperRow) {
         isUpperRow = upperRow;
     }
+    //abtract method 
+    public abstract void addGem(Gem gem);
 
     public abstract void removeGem(Gem gem);
 
     public abstract int getGemsCount();
 
     public abstract boolean isEmpty();
-
-    public boolean isGameOver(){
-        //TODO: check 2 HalfCircle isEmpty()
-        return false;
+    
+ // Method to check if it's a half-circle
+    public boolean isHalfCircle() {
+        if (this.isUpperRow()) {
+            return position == 0;  // Giả sử ô half-circle trên ở vị trí 0
+        } else {
+            return position == 11;  // Giả sử ô half-circle dưới ở vị trí 11
+        }
     }
 
+ // Method to check if the game is over (both half-circles are empty)
+    public static boolean isGameOver(List<Cell> cells) {
+        boolean upperHalfCircleEmpty = true;
+        boolean lowerHalfCircleEmpty = true;
+        // Check the status of the half-circle cells
+        for (Cell cell : cells) {
+            if (cell.isHalfCircle()) {
+                if (cell.isEmpty()) {
+                    if (cell.isUpperRow()) {
+                        upperHalfCircleEmpty = true;
+                    } else {
+                        lowerHalfCircleEmpty = true;
+                    }
+                } else {
+                    if (cell.isUpperRow()) {
+                        upperHalfCircleEmpty = false;
+                    } else {
+                        lowerHalfCircleEmpty = false;
+                    }
+                }
+            }
+        }
+
+        // The game ends if both half-circle cells are empty
+        return upperHalfCircleEmpty && lowerHalfCircleEmpty;
+
+    }
 }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
