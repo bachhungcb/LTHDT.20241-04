@@ -1,11 +1,11 @@
 package game;
 
+import java.util.List;
+
 import gem.Gem;
 import model.Cell;
 import model.GameBoard;
 import model.Player;
-
-import java.util.List;
 
 public class Game {
     private Player player1;
@@ -24,9 +24,7 @@ public class Game {
         playGame();
 
     }
-     private boolean checkGameOver() {
-        return Cell.isGameOver(board.getCells());
-    }
+
  // Method to simulate playing the game
     private void playGame() {
     	//TODO
@@ -43,9 +41,16 @@ public class Game {
         endGame();  // End the game when it's over
     }
 
-    private void endGame() {
-        System.out.println("Game has ended.");
-        determineWinner();
+
+    private void endGame(){
+        //TODO: Kết thúc game
+    	if(checkGameOver()) {
+    		player1.setInTurn(false);
+    		player2.setInTurn(false);
+    		Player winner = determineWinner();
+    		System.out.println("endGame");
+    		
+    	}
     }
 
     private void switchTurn() {
@@ -61,9 +66,7 @@ public class Game {
 
     private boolean checkGameOver(){
         //TODO:  kiểm tra lại cách List<Cell> cells ở gameboard có trả về HalfCircle không.
-        if(Cell.isGameOver(boảd.getCells)){
-            Player winner = determineWinner();
-            System.out.println("Game over! Winner: " + winner.toString());
+        if(Cell.isGameOver(board.getCells())){
             return true;
         }
         return false;
