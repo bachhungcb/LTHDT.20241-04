@@ -17,8 +17,10 @@ public class SmallGem extends Gem {
 	}
 	@Override
 	public String toString() {
-		// Co phai override method toString ?
-		return null;
+		return "SmallGems{" +
+				"position=" + position +
+				", value=" + value +
+				'}';
 	}
 	
 }
