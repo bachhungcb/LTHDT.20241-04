@@ -3,7 +3,11 @@ package model;
 import java.util.List;
 
 public class GameBoard {
-    private List<Cell> cells;
+    private static final int numSquare = 10;
+    private final int numHalfCircle = 2;  // even number
+    private final int numSmallGem = 50;
+    private final int numBigGem = 2;
+    private Cell[] cells = new Cell[numHalfCircle + numSquare];
 
     // Constructor
     public GameBoard(List<Cell> cells) {
