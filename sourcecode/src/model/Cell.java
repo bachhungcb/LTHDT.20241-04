@@ -9,11 +9,14 @@ public abstract class Cell {
     private int score;
     
     //constructor
-    public Cell(int position , boolean isUpperRow) {
+    public Cell(int position , boolean isUpperRow, int numberOfGems) {
        //TODO: implement Cell constructor
-    	this.gems= new ArrayList<>();
-    	this.position=position;
-    	this.isUpperRow=isUpperRow;
+    	this.gems = new ArrayList<>();
+    	this.position = position;
+    	this.isUpperRow = isUpperRow;
+    	for(int i = 0; i < numberOfGems; i++) {
+    		this.gems.add(null);
+    	}
     	
     }
 
@@ -31,6 +34,9 @@ public abstract class Cell {
     }
     public int getScore() {
     	return score;
+    }
+    public int getNUmberOfGems() {
+    	return gems.size();
     }
     //setter
     public void setGems(List<Gem> gems) {
