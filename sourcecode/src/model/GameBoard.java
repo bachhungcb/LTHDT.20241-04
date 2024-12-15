@@ -37,13 +37,17 @@ public class GameBoard {
     }
 
     // Getter
-    public List<Cell> getCells() {
+    public Cell[] getCells() {
         return cells;
     }
+    public static int getNumSquare(){return numSquare;}
+    public int getNumSmallGem(){return numSmallGem;}
+    public int getNumHalfCircle(){return numHalfCircle;}
+    public int getNumBigGem(){return numBigGem;}
 
     // Setter
     public void setCells(List<Cell> cells) {
-        this.cells = cells;
+        this.cells = cells.toArray(new Cell[0]);
     }
 
     // Get the score of a player
@@ -56,6 +60,29 @@ public class GameBoard {
         return player.getName();
     }
 
+
+
+    public Cell[] getBoard(){
+        return cells;
+    }
+
+    public Cell getNextCellCounterClockwise(Cell cell){
+        if(cell.getPosition() == 0) {
+            return this.cells[numSquare + numHalfCircle - 1];
+        }
+        else {
+            return this.cells[cell.getPosition() - 1];
+        }
+    }
+
+    public Cell getNextCellClockwise(Cell cell) {
+        if(cell.getPosition() == numSquare + numHalfCircle - 1) {
+            return this.cells[0];
+        }
+        else {
+            return this.cells[cell.getPosition() + 1];
+        }
+    }
     // Display the game menu
     public void showMenu() {
         // TODO: Implement the menu display logic
