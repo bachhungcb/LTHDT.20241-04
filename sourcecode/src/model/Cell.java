@@ -76,33 +76,38 @@ public abstract class Cell {
             return position == 6;  // Giả sử ô half-circle dưới ở vị trí 11
         }
     }
+// method kiem tra ket thuc game (2 halfcircle rong hoac hang square tren rong hoac hang square duoi rong
+    public static boolean isGameOver(Cell[] cells) {
+        boolean upperSquaresEmpty = true;
+        boolean lowerSquaresEmpty = true;
+        boolean upperHalfCircleEmpty = false;
+        boolean lowerHalfCircleEmpty = false;
 
- // Method to check if the game is over (both half-circles are empty)
-    public static boolean isGameOver(List<Cell> cells) {
-        boolean upperHalfCircleEmpty = true;
-        boolean lowerHalfCircleEmpty = true;
-        // Check the status of the half-circle cells
+        // Check the status of the squares and half-circles
         for (Cell cell : cells) {
             if (cell.isHalfCircle()) {
-                if (cell.isEmpty()) {
-                    if (cell.isUpperRow()) {
-                        upperHalfCircleEmpty = true;
-                    } else {
-                        lowerHalfCircleEmpty = true;
+                if (cell.isUpperRow()) {
+                    upperHalfCircleEmpty = cell.isEmpty();
+                } else {
+                    lowerHalfCircleEmpty = cell.isEmpty();
+                }
+            } else {
+                if (cell.isUpperRow()) {
+                    // If any upper row cell is not empty, mark upper squares as not empty
+                    if (!cell.isEmpty()) {
+                        upperSquaresEmpty = false;
                     }
                 } else {
-                    if (cell.isUpperRow()) {
-                        upperHalfCircleEmpty = false;
-                    } else {
-                        lowerHalfCircleEmpty = false;
+                    // If any lower row cell is not empty, mark lower squares as not empty
+                    if (!cell.isEmpty()) {
+                        lowerSquaresEmpty = false;
                     }
                 }
             }
         }
-
-        // The game ends if both half-circle cells are empty
-        return upperHalfCircleEmpty && lowerHalfCircleEmpty;
-
+        return (upperHalfCircleEmpty && lowerHalfCircleEmpty) ||
+                upperSquaresEmpty ||
+                lowerSquaresEmpty;
     }
     // method lam trong cell khi nguoi choi chon cell de rai gem
     public void emptyCell() {
