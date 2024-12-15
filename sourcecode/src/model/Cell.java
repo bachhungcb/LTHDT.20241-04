@@ -29,6 +29,9 @@ public abstract class Cell {
     public boolean isUpperRow() {
         return isUpperRow;
     }
+    public int getScore() {
+    	return score;
+    }
     //setter
     public void setGems(List<Gem> gems) {
         this.gems = gems;
@@ -40,6 +43,9 @@ public abstract class Cell {
 
     public void setUpperRow(boolean upperRow) {
         isUpperRow = upperRow;
+    }
+    public void setScore(int score) {
+    	this.score = score;
     }
     //abtract method 
     public abstract void addGem(Gem gem);
