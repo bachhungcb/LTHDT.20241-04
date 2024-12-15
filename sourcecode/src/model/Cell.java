@@ -53,11 +53,17 @@ public abstract class Cell {
     public void setScore(int score) {
     	this.score = score;
     }
+    // method them xoa gem khoi cell
+    public void addGem(Gem gem) {
+    	if(gem != null)
+    		this.gems.add(gem);
+    }
+
+    public void removeGem(Gem gem) {
+    	if(gem != null && this.gems.contains(gem))
+    		this.gems.remove(gem);
+    }
     //abtract method 
-    public abstract void addGem(Gem gem);
-
-    public abstract void removeGem(Gem gem);
-
     public abstract int getGemsCount();
 
     public abstract boolean isEmpty();
@@ -97,6 +103,17 @@ public abstract class Cell {
         // The game ends if both half-circle cells are empty
         return upperHalfCircleEmpty && lowerHalfCircleEmpty;
 
+    }
+    // method lam trong cell khi nguoi choi chon cell de rai gem
+    public void emptyCell() {
+        gems.clear();
+    }
+    public int calculateScore() {
+    	score = 0;
+    	for(Gem gem : gems) {
+    		score += gem.getValue();
+    	}
+    	return score;
     }
 }
 
