@@ -1,5 +1,8 @@
 package model;
 
+import gem.BigGem;
+import gem.SmallGem;
+
 import java.util.List;
 
 public class GameBoard {
@@ -10,8 +13,27 @@ public class GameBoard {
     private Cell[] cells = new Cell[numHalfCircle + numSquare];
 
     // Constructor
-    public GameBoard(List<Cell> cells) {
-        this.cells = cells;
+    public GameBoard(){
+
+        this.cells[0] = new HalfCircle(0, false, 0);
+        this.cells[0].addGem(new BigGem(this.cells[0]));
+        this.cells[0].addGem(new SmallGem(this.cells[0]));
+
+        this.cells[6] = new HalfCircle(6, true, 0);;
+        this.cells[6].addGem(new BigGem(this.cells[11]));
+        this.cells[6].addGem(new SmallGem(this.cells[11]));
+        for(int i = 1; i <= 5; i++) {
+            this.cells[i] = new Square(i, false,0);
+            for(int j = 0; j < 5; j++) {
+                this.cells[i].addGem(new SmallGem(this.cells[i]));
+            }
+        }
+        for(int i = 7; i <= 11; i++) {
+            this.cells[i] = new Square(i, true,0);
+            for(int j = 0; j < 5; j++) {
+                this.cells[i].addGem(new SmallGem(this.cells[i]));
+            }
+        }
     }
 
     // Getter
