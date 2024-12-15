@@ -3,9 +3,10 @@ import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
 public abstract class Cell {
-    private List<Gem> gems;
+    protected List<Gem> gems;
     private int position;
     private boolean isUpperRow;
+    private int score;
     
     //constructor
     public Cell(int position , boolean isUpperRow) {
