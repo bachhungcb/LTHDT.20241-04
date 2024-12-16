@@ -4,9 +4,7 @@ import java.util.List;
 
 import gems.Gems;
 
-public class halfCircle extends Cell {
-	private int position;
-	private List<Gems> gems; 
+public class halfCircle extends Cell {	
 	
 	//Phương thức thêm sỏi vào bán cầu
 	public void addGem(Gems gem) {
