@@ -29,6 +29,14 @@ public class Square extends Cell implements Pickable{
     public boolean isPickable() {
         return true;
     }
-
+    @Override
+    public String toString() {
+        return "Square{" +
+                "position=" + getPosition() +
+                ", isUpperRow=" + isUpperRow() +
+                ", gemsCount=" + getGemsCount() +
+                ", score=" + calculateScore() +
+                '}';
+    }
 
 }
