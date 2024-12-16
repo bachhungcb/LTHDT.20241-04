@@ -4,10 +4,7 @@ import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Square extends Cell{
-
-    private int position;
-    private List<Gem> gems;
+public class Square extends Cell implements Pickable{
 
     public Square(int position) {
         this.position = position;
