@@ -26,6 +26,12 @@ public abstract class Cell {
 	public void setUpperRow(boolean isUpperRow) {
 		this.isUpperRow = isUpperRow;
 	}
+	
+    public Cell(int position, boolean isUpperRow, int numberOfGems) {
+        this.gems = new ArrayList<>(numberOfGems); 
+        this.position = position;
+        this.isUpperRow = isUpperRow; 
+    }
     
     
 }

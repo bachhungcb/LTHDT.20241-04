@@ -6,6 +6,10 @@ import gems.Gems;
 
 public class halfCircle extends Cell {	
 	
+	public halfCircle(int position, boolean isUpperRow, int numberOfGems) {
+		super(position, isUpperRow, numberOfGems);
+	}
+
 	//Phương thức thêm sỏi vào bán cầu
 	public void addGem(Gems gem) {
 		gems.add(gem);
