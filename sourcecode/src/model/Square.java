@@ -1,14 +1,11 @@
 package model;
 
 import gem.Gem;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Square extends Cell implements Pickable{
 
-    public Square(int position) {
-        this.position = position;
-        this.gems = new ArrayList<>();
+    public Square(int position, boolean isUpperRow, int numberOfGems) {
+        super(position, isUpperRow, numberOfGems);
     }
 
     // Phương thức thêm sỏi vào bán cầu
