@@ -1,26 +1,30 @@
 package model;
 
-import gems.Gems;
+import java.util.List;
 
-public class halfCircle extends Cell {
+import gem.Gem;
+import model.Cell;
 
-	public halfCircle(int position, boolean isUpperRow, int numberOfGems) {
+public class HalfCircle extends Cell {
+
+	public HalfCircle(int position, boolean isUpperRow, int numberOfGems) {
 		super(position, isUpperRow, numberOfGems);
 	}
 
 	// Phương thức thêm sỏi vào bán cầu
-	public void addGem(Gems gem) {
+	public void addGem(Gem gem) {
 		getGems().add(gem);
 	}
-
+	
+	//Phương thức xóa sỏi khỏi bán cầu
 	// Phương thức xóa sỏi khỏi bán cầu
-	public void removeGem(Gems gem) {
+	public void removeGem(Gem gem) {
 		getGems().remove(gem);
 	}
 
 	// Phương thức lấy số sỏi trong bán cầu
 	public int getGemsCount() {
-		return getGems().size();
+        return getGems().size();
 	}
 
 	// Phương thức kiểm tra bán cầu có rỗng không
@@ -31,7 +35,7 @@ public class halfCircle extends Cell {
 	// Phương thức tính điểm của bán cầu
 	public int calculateScore() {
 		int score = 0;
-		for (Gems gem : getGems()) {
+		for (Gem gem : getGems()) {
 			score += gem.getValue();
 		}
 		return score;
