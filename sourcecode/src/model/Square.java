@@ -19,12 +19,11 @@ public class Square extends Cell implements Pickable{
 	}
 
     public int getGemsCount() {
-
-        return position;
+        return getNUmberOfGems();
     }
 
     public boolean isEmpty() {
-        return false;
+        return gems.isEmpty();
     }
 
     public boolean isPickable() {
