@@ -1,13 +1,15 @@
 package model;
+
 import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
+
 public abstract class Cell {
     protected List<Gem> gems;
     private int position;
     private boolean isUpperRow;
     private int score;
-    
+
     //constructor
     public Cell(int position , boolean isUpperRow, int numberOfGems) {
        //TODO: implement Cell constructor
@@ -17,7 +19,7 @@ public abstract class Cell {
     	for(int i = 0; i < numberOfGems; i++) {
     		this.gems.add(null);
     	}
-    	
+
     }
 
     //getter
@@ -63,11 +65,11 @@ public abstract class Cell {
     	if(gem != null && this.gems.contains(gem))
     		this.gems.remove(gem);
     }
-    //abtract method 
+    //abtract method
     public abstract int getGemsCount();
 
     public abstract boolean isEmpty();
-    
+
  // Method to check if it's a half-circle
     public boolean isHalfCircle() {
         if (!this.isUpperRow()) {
@@ -122,18 +124,18 @@ public abstract class Cell {
     }
 }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
