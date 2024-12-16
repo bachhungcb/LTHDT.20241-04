@@ -25,7 +25,7 @@ public class Game {
 
     }
     private boolean checkGameOver() {
-        return Cell.isGameOver();
+        return Cell.isGameOver(board.getCells());
     }
  // Method to simulate playing the game
     private void playGame() {
