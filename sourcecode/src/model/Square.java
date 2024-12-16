@@ -29,6 +29,7 @@ public class Square extends Cell implements Pickable{
     public boolean isPickable() {
         return true;
     }
+    //method toString() trong Square
     @Override
     public String toString() {
         return "Square{" +
