@@ -108,8 +108,13 @@ public class Player {
         }
     }
     // tính điểm dựa vào ô đã ăn
-    public void earnGemFrom(Cell cell){
-        this.score += cell.getNUmberOfGems();
+    public void earnGemFrom(Cell cell){    
+    	if (cell instanceof HalfCircle) {
+    		this.score += 5;
+    		}
+    	else {
+    		this.score += cell.getNUmberOfGems();
+    	}
     }
     public void spreadGem(Cell initPos, int handDirection, GameBoard board){
         /*
@@ -135,23 +140,21 @@ public class Player {
                     pickUpGemFrom(nextHandPosition);
                     spreadGem(nextHandPosition, handDirection, board);
                 }
-                else {
-                	//TODO
-                	// đổi lượt game nếu ô tiếp theo là ô quan (cần sửa quyền truy cập switchTurn trong Game đang là private)
-               	 switchTurn();
-                	
-                }
-                
-            }else{ // có thể thu thập điểm từ ô này
+            } else { // Có thể thu thập điểm từ ô này
+                // Nếu ô tiếp theo trống, kiểm tra ô sau nữa để ăn sỏi
                 while(nextHandPosition.isEmpty() &&
                       !(board.getNextCellClockwise(nextHandPosition).isEmpty())){
-                    earnGemFrom(board.getNextCellClockwise(nextHandPosition));
-                    nextHandPosition = board.getNextCellClockwise(nextHandPosition);
+                    // Kiểm tra nếu ô sau có sỏi của đối phương thì ăn sỏi
+                    Cell nextNextPosition = board.getNextCellClockwise(nextHandPosition);
+                    if(nextNextPosition != null && nextNextPosition.isUpperRow()) {
+                        earnGemFrom(nextNextPosition);
+                        
+                    }
                 }
             }
-        }else if(handDirection == 1){ // ngược chiều kim đồng hồ
+        } else if(handDirection == 1){ // Ngược chiều kim đồng hồ
             // Rải đá quý lần đầu tiên
-            for(int i = 1; i <=numOfGemsInHand; i++){ 
+            for(int i = 1; i <= numOfGemsInHand; i++){ 
                 handPosition = board.getNextCellCounterClockwise(handPosition);
                 dropGemInto(handPosition);
             }
@@ -163,27 +166,23 @@ public class Player {
                     pickUpGemFrom(nextHandPosition);
                     spreadGem(nextHandPosition, handDirection, board);
                 }
-                else {
-                	//TOD
-                	 switchTurn();
-                }
-                
-            }else{ // có thể thu thập điểm từ ô này
+            } else { // Có thể thu thập điểm từ ô này
+                // Nếu ô tiếp theo trống, kiểm tra ô sau nữa để ăn sỏi
                 while(nextHandPosition.isEmpty() &&
                       !(board.getNextCellCounterClockwise(nextHandPosition).isEmpty())){
-                    earnGemFrom(board.getNextCellCounterClockwise(nextHandPosition));
-                    nextHandPosition = board.getNextCellCounterClockwise(nextHandPosition);
+                    // Kiểm tra nếu ô sau có sỏi của đối phương thì ăn sỏi
+                    Cell nextNextPosition = board.getNextCellCounterClockwise(nextHandPosition);
+                    if(nextNextPosition != null && nextNextPosition.isUpperRow()) {
+                        earnGemFrom(nextNextPosition);
+                    }
                 }
             }
         }
     }
-
     
+  
     
-    
-    
-
-
+   
     @Override
     public String toString(){
         return "Player{" +
