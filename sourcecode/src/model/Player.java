@@ -125,7 +125,7 @@ public class Player {
 	    int[] positions1 = new int[]{1, 2, 3, 4, 5};
 	    int[] positions2 = new int[]{6, 7, 8, 9, 10};
 
-	    List<Cell> cells = board.getCells(); // Giả định GameBoard có danh sách các ô
+	    List<Cell> cells = List.of(board.getCells()); // Giả định GameBoard có danh sách các ô
 
 	    // Kiểm tra các ô trong hàng trên hoặc dưới
 	    if (this.isUpperRow()) {
