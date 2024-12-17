@@ -17,9 +17,30 @@ public class Game {
         this.player2 = player2;
         this.board = board;
     }
-    private void startGame(){
-        //TODO: khởi tạo game
-        System.out.println("start game");
+    public void startGame() {
+        player1.setInTurn(Math.random() < 0.5);
+        System.out.println("Game has started!");
+        System.out.println((player1.isInTurn() ? player1.getName() : player2.getName()) + " plays first.");
+        playGame();
+
+    }
+    private boolean checkGameOver() {
+        return Cell.isGameOver(board.getCells());
+    }
+ // Method to simulate playing the game
+    private void playGame() {
+    	//TODO
+        // Assume there's a game loop here to continue until the game is over
+        while (!checkGameOver()) {
+            System.out.println((player1.isInTurn() ? player1.getName() : player2.getName()) + "'s turn.");
+            
+            // Player's turn logic
+            //makeMove();
+
+            switchTurn();  // Switch turn after each move
+        }
+
+        endGame();  // End the game when it's over
     }
 
     private void endGame(){
