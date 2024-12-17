@@ -33,6 +33,9 @@ public class Player {
     public int getScore() { return score; }
     public boolean isUpperRow() { return isUpperRow; }
     public boolean isInTurn() { return inTurn; }
+    public String getName() {
+        return name;
+    }
 
     public void setScore(int score) { this.score = score; }
     public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
