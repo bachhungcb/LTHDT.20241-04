@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.List;
 
 import gem.Gem;
@@ -15,6 +16,7 @@ public class Player {
     private int numOfGemsInHand;
     private int numOfGemsLent;
     private int numOfGemsBorrowed;
+    private ArrayList<Cell> cellsOnSide = new ArrayList<Cell>();
 
     // Constructor
     public Player(int playerID, String name, int score, boolean isUpperRow) {
@@ -36,9 +38,15 @@ public class Player {
     public String getName() {
         return name;
     }
+    public ArrayList<Cell> getCellsOnSide() {
+        return cellsOnSide;
+    }
 
     public void setScore(int score) { this.score = score; }
     public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
+    public void setCellsOnSide(ArrayList<Cell> cellsOnSide) {
+        this.cellsOnSide = cellsOnSide;
+    }
 
     // Nhặt sỏi từ ô thỏa mãn điều kiện
     public boolean pickUpGemFrom(Cell cell) {
