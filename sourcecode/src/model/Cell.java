@@ -33,27 +33,11 @@ public abstract class Cell {
     public boolean isUpperRow() {
         return isUpperRow;
     }
-    public int getScore() {
-    	return score;
-    }
+
     public int getNUmberOfGems() {
     	return gems.size();
     }
-    //setter
-    public void setGems(List<Gem> gems) {
-        this.gems = gems;
-    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public void setUpperRow(boolean upperRow) {
-        isUpperRow = upperRow;
-    }
-    public void setScore(int score) {
-    	this.score = score;
-    }
     // method them xoa gem khoi cell
     public void addGem(Gem gem) {
     	if(gem != null)
