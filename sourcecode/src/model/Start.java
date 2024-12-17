@@ -5,7 +5,7 @@ import game.Game;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GamePlayTest {
+public class Start {
 	static Scanner scanner = new Scanner(System.in);
 	public static void main(String[] args){
 		GameBoard board = new GameBoard();
