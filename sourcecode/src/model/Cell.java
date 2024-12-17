@@ -77,22 +77,7 @@ public abstract class Cell {
             return position == 6;  // Giả sử ô half-circle dưới ở vị trí 11
         }
     }
-// method kiem tra ket thuc game (2 halfcircle rong hoac hang square tren rong hoac hang square duoi rong
-    public static boolean isGameOver(Cell[] cells) {
-        boolean upperSquaresEmpty = true;
-        boolean lowerSquaresEmpty = true;
-        boolean upperHalfCircleEmpty = false;
-        boolean lowerHalfCircleEmpty = false;
 
-
- // Method to check if it's a half-circle
-    public boolean isHalfCircle() {
-        if (!this.isUpperRow()) {
-            return position == 0;  // Giả sử ô half-circle trên ở vị trí 0
-        } else {
-            return position == 6;  // Giả sử ô half-circle dưới ở vị trí 11
-        }
-    }
 // method kiem tra ket thuc game (2 halfcircle rong hoac hang square tren rong hoac hang square duoi rong
     public static boolean isGameOver(Cell[] cells) {
         boolean upperSquaresEmpty = true;
