@@ -33,6 +33,9 @@ public class Player {
     public int getScore() { return score; }
     public boolean isUpperRow() { return isUpperRow; }
     public boolean isInTurn() { return inTurn; }
+    public String getName() {
+        return name;
+    }
 
     public void setScore(int score) { this.score = score; }
     public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
@@ -125,7 +128,7 @@ public class Player {
 	    int[] positions1 = new int[]{1, 2, 3, 4, 5};
 	    int[] positions2 = new int[]{6, 7, 8, 9, 10};
 
-	    List<Cell> cells = board.getCells(); // Giả định GameBoard có danh sách các ô
+	    List<Cell> cells = List.of(board.getCells()); // Giả định GameBoard có danh sách các ô
 
 	    // Kiểm tra các ô trong hàng trên hoặc dưới
 	    if (this.isUpperRow()) {
