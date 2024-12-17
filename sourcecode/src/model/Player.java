@@ -1,7 +1,10 @@
 package model;
+import java.util.List;
+
 import gem.Gem;
 import gem.SmallGem;
-import game.Game;
+import model.GameBoard;
+
 public class Player {
     private int playerID;
     private String name;
@@ -12,188 +15,170 @@ public class Player {
     private int numOfGemsInHand;
     private int numOfGemsLent;
     private int numOfGemsBorrowed;
-    //Cần phải lưu ý rằng, từ code có thể chuyển ngược lại diagram nên trong khi code
-    //Cứ thoải mái trong việc tạo Getter và Setter, đến cuối, IntelliJ có thể safe delete những hàm k sử dụng
 
-    //Getter
-    public int getPlayerID() {
-        return playerID;
-    }
-    public String getName() {
-        return name;
-    }
-    public int getScore() {
-        return score;
-    }
-    public Cell getHandPosition() {
-        return handPosition;
-    }
-    public int getNumOfGemsInHand() {
-        return numOfGemsInHand;
-    }
-    public int getNumOfGemsLent() {
-        return numOfGemsLent;
-    }
-    public int getNumOfGemsBorrowed() {
-        return numOfGemsBorrowed;
-    }
-    public boolean isUpperRow() {
-        return isUpperRow;
-    }
-    public boolean isInTurn() {
-        return inTurn;
-    }
-
-    //Setter
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setScore(int score) {
-        this.score = score;
-    }
-    public void setUpperRow(boolean upperRow) {
-        isUpperRow = upperRow;
-    }
-    public void setHandPosition(Cell handPosition) {
-        this.handPosition = handPosition;
-    }
-    public void setInTurn(boolean inTurn) {
-        this.inTurn = inTurn;
-    }
-    public void setNumOfGemsInHand(int numOfGemsInHand) {
-        this.numOfGemsInHand = numOfGemsInHand;
-    }
-    public void setNumOfGemsLent(int numOfGemsLent) {
-        this.numOfGemsLent = numOfGemsLent;
-    }
-    public void setNumOfGemsBorrowed(int numOfGemsBorrowed) {
-        this.numOfGemsBorrowed = numOfGemsBorrowed;
-    }
-
-    public Player(int playerID, String name, int score, boolean isUpperRow, boolean inTurn, int numOfGemsInHand, int numOfGemsLent, int numOfGemsBorrowed) {
+    // Constructor
+    public Player(int playerID, String name, int score, boolean isUpperRow) {
         this.playerID = playerID;
         this.name = name;
         this.score = score;
         this.isUpperRow = isUpperRow;
-        this.inTurn = inTurn;
-        this.numOfGemsInHand = numOfGemsInHand;
-        this.numOfGemsLent = numOfGemsLent;
-        this.numOfGemsBorrowed = numOfGemsBorrowed;
+        this.inTurn = false;
+        this.numOfGemsInHand = 0;
+        this.numOfGemsLent = 0;
+        this.numOfGemsBorrowed = 0;
     }
-    
-    // nhặ đá nếu cell thoả mãn điều kiện có thể nhặt & khác trống
-    public boolean pickUpGemFrom(Cell cell){
-        if((cell instanceof Pickable) && (!(cell.isEmpty()))){
+
+    // Getter và Setter (không đổi)
+    public int getPlayerID() { return playerID; }
+    public int getScore() { return score; }
+    public boolean isUpperRow() { return isUpperRow; }
+    public boolean isInTurn() { return inTurn; }
+
+    public void setScore(int score) { this.score = score; }
+    public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
+
+    // Nhặt sỏi từ ô thỏa mãn điều kiện
+    public boolean pickUpGemFrom(Cell cell) {
+        if (cell instanceof Pickable && !cell.isEmpty()) {
             this.numOfGemsInHand += cell.getNUmberOfGems();
             cell.emptyCell();
             return true;
         }
         return false;
     }
+
+    // Rải sỏi vào ô
     public void dropGemInto(Cell cell) {
-        // Kiểm tra xem tay người chơi có còn sỏi không
         if (this.numOfGemsInHand > 0) {
-            // Tạo một viên sỏi mới với vị trí là ô mục tiêu
             Gem gemToDrop = new SmallGem(cell);
-            // Thêm viên sỏi mới vào danh sách sỏi trong ô mong muốn
             cell.addGem(gemToDrop);
-            // Giảm số lượng sỏi trong tay người chơi đi 1
             this.numOfGemsInHand--;
+        }
+    }
+
+    // Ăn điểm từ ô đã chỉ định
+    public void earnGemFrom(Cell cell) {
+        if (cell instanceof HalfCircle) {
+            this.score += 5;
         } else {
-            // Nếu tay người chơi không còn sỏi, thông báo
-            System.out.println("No gems in hand to drop!");
+            this.score += cell.getNUmberOfGems();
         }
+        cell.emptyCell();
     }
-    // tính điểm dựa vào ô đã ăn
-    public void earnGemFrom(Cell cell){    
-    	if (cell instanceof HalfCircle) {
-    		this.score += 5;
-    		}
-    	else {
-    		this.score += cell.getNUmberOfGems();
-    	}
-    }
-    public void spreadGem(Cell initPos, int handDirection, GameBoard board){
-        /*
-        Giả sử người chơi đã CHỌN đá quý từ ô initPosition
-        Các hành động: di chuyển đến ô tiếp theo từ initPosition, thả đá quý vào ô đó, tiếp tục di chuyển tới các ô gần đó
-        Hướng di chuyển:
-            0: theo chiều kim đồng hồ
-            1: ngược chiều kim đồng hồ
-        */
 
+    // Rải và kiểm tra điều kiện luật chơi
+    public void spreadGem(Cell initPos, int handDirection, GameBoard board) {
         this.handPosition = initPos;
-        if(handDirection == 0){ // theo chiều kim đồng hồ
-            // Rải đá quý lần đầu tiên
-            for(int i = 1; i <= numOfGemsInHand; i++){ 
+
+        // Điều kiện rải lần đầu tiên
+        while (this.numOfGemsInHand > 0) {
+            if (handDirection == 0) { // Theo chiều kim đồng hồ
                 handPosition = board.getNextCellClockwise(handPosition);
-                dropGemInto(handPosition);
-            }
-
-            // Kiểm tra tiếp tục lượt
-            Cell nextHandPosition = board.getNextCellClockwise(handPosition);
-            if(!nextHandPosition.isEmpty()){
-                if(!(nextHandPosition instanceof HalfCircle)){ // có thể rải thêm đá quý
-                    pickUpGemFrom(nextHandPosition);
-                    spreadGem(nextHandPosition, handDirection, board);
-                }
-            } else { // Có thể thu thập điểm từ ô này
-                // Nếu ô tiếp theo trống, kiểm tra ô sau nữa để ăn sỏi
-                while(nextHandPosition.isEmpty() &&
-                      !(board.getNextCellClockwise(nextHandPosition).isEmpty())){
-                    // Kiểm tra nếu ô sau có sỏi của đối phương thì ăn sỏi
-                    Cell nextNextPosition = board.getNextCellClockwise(nextHandPosition);
-                    if(nextNextPosition != null && nextNextPosition.isUpperRow()) {
-                        earnGemFrom(nextNextPosition);
-                        
-                    }
-                }
-            }
-        } else if(handDirection == 1){ // Ngược chiều kim đồng hồ
-            // Rải đá quý lần đầu tiên
-            for(int i = 1; i <= numOfGemsInHand; i++){ 
+            } else { // Ngược chiều kim đồng hồ
                 handPosition = board.getNextCellCounterClockwise(handPosition);
-                dropGemInto(handPosition);
             }
-
-            // Kiểm tra tiếp tục lượt
-            Cell nextHandPosition = board.getNextCellCounterClockwise(handPosition);
-            if(!nextHandPosition.isEmpty()){
-                if(!(nextHandPosition instanceof HalfCircle)){ // có thể rải thêm đá quý
-                    pickUpGemFrom(nextHandPosition);
-                    spreadGem(nextHandPosition, handDirection, board);
-                }
-            } else { // Có thể thu thập điểm từ ô này
-                // Nếu ô tiếp theo trống, kiểm tra ô sau nữa để ăn sỏi
-                while(nextHandPosition.isEmpty() &&
-                      !(board.getNextCellCounterClockwise(nextHandPosition).isEmpty())){
-                    // Kiểm tra nếu ô sau có sỏi của đối phương thì ăn sỏi
-                    Cell nextNextPosition = board.getNextCellCounterClockwise(nextHandPosition);
-                    if(nextNextPosition != null && nextNextPosition.isUpperRow()) {
-                        earnGemFrom(nextNextPosition);
-                    }
-                }
-            }
+            dropGemInto(handPosition);
         }
+
+        // Kiểm tra ô tiếp theo
+        Cell nextCell = (handDirection == 0) ? board.getNextCellClockwise(handPosition) : board.getNextCellCounterClockwise(handPosition);
+        
+        if (nextCell.isEmpty()) {
+            // Nếu ô tiếp theo trống → kiểm tra ô sau để ăn sỏi 
+            Cell nextNextCell = (handDirection == 0) ? board.getNextCellClockwise(nextCell) : board.getNextCellCounterClockwise(nextCell);
+            // ô sau k trống thì ăn sỏi 
+            if (!nextNextCell.isEmpty() && !(nextNextCell instanceof HalfCircle)) {
+                earnGemFrom(nextNextCell);
+            }
+            else if(nextNextCell.isEmpty()) {
+            	// mất lượt nếu 2 ô trống liên tiếp
+            	this.inTurn=false;
+            	return;
+            }
+        } else if (!(nextCell instanceof HalfCircle)) {
+            // Nếu ô tiếp theo có sỏi → nhặt và rải tiếp ( i+1 có sỏi và k phải là ô quan)
+            pickUpGemFrom(nextCell);
+            spreadGem(nextCell, handDirection, board);
+        }
+        else if(nextCell instanceof HalfCircle) {
+        	// mất lượt chơi nếu ô i+1 là ô quan
+        	this.inTurn=false;
+        	return;
+        }
+        
     }
-    
-  
-    
-   
+   public void QuanNon(Cell cell) {
+	   if (cell instanceof HalfCircle) {
+		   // số dân ở ô quan <5 thì sẽ vào trh quan non và đổi lượt chơi 
+           int k=cell.calculateScore();
+           if(k<5) {
+        	   this.inTurn=false;
+           }
+   }
+   }
+
+// Kiểm tra và mượn sỏi khi cần thiết
+   public void borrowGemsIfNeeded(GameBoard board) {
+	    boolean allEmpty = true; // Giả định tất cả ô trống ban đầu
+
+	    // Xác định các vị trí cần kiểm tra
+	    int[] positions1 = new int[]{1, 2, 3, 4, 5};
+	    int[] positions2 = new int[]{6, 7, 8, 9, 10};
+
+	    List<Cell> cells = board.getCells(); // Giả định GameBoard có danh sách các ô
+
+	    // Kiểm tra các ô trong hàng trên hoặc dưới
+	    if (this.isUpperRow()) {
+	        allEmpty = areAllCellsEmpty(cells, positions1);
+	    } else {
+	        allEmpty = areAllCellsEmpty(cells, positions2);
+	    }
+
+	    // Nếu tất cả ô trống và điểm số >= 5, mượn 5 viên sỏi
+	    if (allEmpty && this.score >= 5) {
+	        System.out.println("Borrowing 5 gems to continue...");
+	        this.score -= 5; // Trừ 5 điểm
+	        this.numOfGemsBorrowed += 5;
+
+	        // Thêm 5 viên sỏi nhỏ vào ô vuông đầu tiên phù hợp
+	        addGemsToFirstSquare(cells, positions1, 5);
+	    }
+	}
+
+	// Kiểm tra xem tất cả các ô được chỉ định có trống không
+	private boolean areAllCellsEmpty(List<Cell> cells, int[] positions) {
+	    for (int pos : positions) {
+	        for (Cell cell : cells) {
+	            if (cell.getPosition() == pos && !cell.isEmpty()) {
+	                return false; // Có ít nhất một ô không trống
+	            }
+	        }
+	    }
+	    return true; // Tất cả ô đều trống
+	}
+
+	// Thêm số lượng sỏi nhỏ vào ô vuông đầu tiên phù hợp
+	private void addGemsToFirstSquare(List<Cell> cells, int[] positions, int numOfGems) {
+	    for (int pos : positions) {
+	        for (Cell cell : cells) {
+	            if (cell.getPosition() == pos && cell instanceof Square) {
+	                for (int i = 0; i < numOfGems; i++) {
+	                    cell.addGem(new SmallGem(cell));
+	                }
+	                return; // Thêm xong thì thoát
+	            }
+	        }
+	    }
+	}
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Player{" +
                 "playerID=" + playerID +
                 ", name='" + name + '\'' +
                 ", score=" + score +
                 ", isUpperRow=" + isUpperRow +
-                ", inTurn=" + inTurn +
                 ", numOfGemsInHand=" + numOfGemsInHand +
-                ", numOfGemsLent=" + numOfGemsLent +
-                ", numOfGemsBorrowed=" + numOfGemsBorrowed +
                 '}';
     }
 }
