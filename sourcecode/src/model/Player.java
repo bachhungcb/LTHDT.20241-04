@@ -4,7 +4,6 @@ import java.util.List;
 
 import gem.Gem;
 import gem.SmallGem;
-import model.GameBoard;
 
 public class Player {
     private int playerID;
@@ -30,8 +29,6 @@ public class Player {
         this.numOfGemsBorrowed = 0;
     }
 
-    // Getter và Setter (không đổi)
-    public int getPlayerID() { return playerID; }
     public int getScore() { return score; }
     public boolean isUpperRow() { return isUpperRow; }
     public boolean isInTurn() { return inTurn; }
@@ -42,7 +39,6 @@ public class Player {
         return cellsOnSide;
     }
 
-    public void setScore(int score) { this.score = score; }
     public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
     public void setCellsOnSide(ArrayList<Cell> cellsOnSide) {
         this.cellsOnSide = cellsOnSide;
