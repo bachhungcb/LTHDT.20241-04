@@ -3,8 +3,6 @@ package model;
 import gem.BigGem;
 import gem.SmallGem;
 
-import java.util.List;
-
 public class GameBoard {
     private static final int numSquare = 10;
     private final int numHalfCircle = 2;  // even number
@@ -40,26 +38,9 @@ public class GameBoard {
     public Cell[] getCells() {
         return cells;
     }
-    public static int getNumSquare(){return numSquare;}
+
     public int getNumSmallGem(){return numSmallGem;}
-    public int getNumHalfCircle(){return numHalfCircle;}
     public int getNumBigGem(){return numBigGem;}
-
-    // Setter
-    public void setCells(List<Cell> cells) {
-        this.cells = cells.toArray(new Cell[0]);
-    }
-
-    // Get the score of a player
-    public int getScore(Player player) {
-        return player.getScore();
-    }
-
-    // Get the name of a player
-    public String getPlayerName(Player player) {
-        return player.getName();
-    }
-
 
 
     public Cell[] getBoard(){
@@ -82,12 +63,5 @@ public class GameBoard {
         else {
             return this.cells[cell.getPosition() + 1];
         }
-    }
-    // Display the game menu
-    public void showMenu() {
-        // TODO: Implement the menu display logic
-        System.out.println("1. Start Game");
-        System.out.println("2. View Scores");
-        System.out.println("3. Exit");
     }
 }

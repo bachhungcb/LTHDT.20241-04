@@ -1,9 +1,9 @@
 package model;
 
-import java.util.List;
+
 
 import gem.Gem;
-import model.Cell;
+
 
 public class HalfCircle extends Cell {
 
