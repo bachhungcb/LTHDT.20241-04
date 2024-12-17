@@ -38,9 +38,15 @@ public class Player {
     public String getName() {
         return name;
     }
+    public ArrayList<Cell> getCellsOnSide() {
+        return cellsOnSide;
+    }
 
     public void setScore(int score) { this.score = score; }
     public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
+    public void setCellsOnSide(ArrayList<Cell> cellsOnSide) {
+        this.cellsOnSide = cellsOnSide;
+    }
 
     // Nhặt sỏi từ ô thỏa mãn điều kiện
     public boolean pickUpGemFrom(Cell cell) {
