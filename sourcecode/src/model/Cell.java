@@ -1,23 +1,24 @@
 package model;
+
 import gem.Gem;
 import java.util.ArrayList;
 import java.util.List;
+
 public abstract class Cell {
     protected List<Gem> gems;
     private int position;
     private boolean isUpperRow;
     private int score;
-    
+
     //constructor
     public Cell(int position , boolean isUpperRow, int numberOfGems) {
        //TODO: implement Cell constructor
-    	this.gems = new ArrayList<>();
-    	this.position = position;
-    	this.isUpperRow = isUpperRow;
-    	for(int i = 0; i < numberOfGems; i++) {
-    		this.gems.add(null);
-    	}
-    	
+        this.gems = new ArrayList<>();
+        this.position = position;
+        this.isUpperRow = isUpperRow;
+        for(int i = 0; i < numberOfGems; i++) {
+          this.gems.add(null);
+        }
     }
 
     //getter
@@ -63,7 +64,7 @@ public abstract class Cell {
     	if(gem != null && this.gems.contains(gem))
     		this.gems.remove(gem);
     }
-    //abtract method 
+
     public abstract int getGemsCount();
 
     public abstract boolean isEmpty();
@@ -83,6 +84,21 @@ public abstract class Cell {
         boolean upperHalfCircleEmpty = false;
         boolean lowerHalfCircleEmpty = false;
 
+
+ // Method to check if it's a half-circle
+    public boolean isHalfCircle() {
+        if (!this.isUpperRow()) {
+            return position == 0;  // Giả sử ô half-circle trên ở vị trí 0
+        } else {
+            return position == 6;  // Giả sử ô half-circle dưới ở vị trí 11
+        }
+    }
+// method kiem tra ket thuc game (2 halfcircle rong hoac hang square tren rong hoac hang square duoi rong
+    public static boolean isGameOver(Cell[] cells) {
+        boolean upperSquaresEmpty = true;
+        boolean lowerSquaresEmpty = true;
+        boolean upperHalfCircleEmpty = false;
+        boolean lowerHalfCircleEmpty = false;
         // Check the status of the squares and half-circles
         for (Cell cell : cells) {
             if (cell.isHalfCircle()) {
@@ -108,6 +124,7 @@ public abstract class Cell {
         return (upperHalfCircleEmpty && lowerHalfCircleEmpty) ||
                 upperSquaresEmpty ||
                 lowerSquaresEmpty;
+
     }
     // method lam trong cell khi nguoi choi chon cell de rai gem
     public void emptyCell() {
@@ -121,19 +138,3 @@ public abstract class Cell {
     	return score;
     }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-

@@ -11,7 +11,7 @@ public class Game {
     private Player player1;
     private Player player2;
     private GameBoard board;
- // Constructor để khởi tạo game
+
     public Game(Player player1, Player player2, GameBoard board) {
         this.player1 = player1;
         this.player2 = player2;
@@ -43,24 +43,34 @@ public class Game {
         endGame();  // End the game when it's over
     }
 
-    private void endGame() {
-        System.out.println("Game has ended.");
-        determineWinner();
+    private void endGame(){
+        //TODO: Kết thúc game
+        System.out.println("endGame");
     }
 
-    private void switchTurn() {
-        if (player1.isInTurn()) {
+    //Hàm đổi lượt giữa 2 người chơi
+    private void switchTurn(){
+        if(player1.isInTurn()){
             player1.setInTurn(false);
             player2.setInTurn(true);
-        } else {
+        }else{
             player2.setInTurn(false);
             player1.setInTurn(true);
         }
     }
 
+//    private boolean checkGameOver(){
+//        //TODO:  kiểm tra lại cách List<Cell> cells ở gameboard có trả về HalfCircle không.
+//        if(Cell.isGameOver(board.getCells())){
+//            Player winner = determineWinner();
+//            System.out.println("Game over! Winner: " + winner.toString());
+//            return true;
+//        }
+//        return false;
+//    }
 
     //Check who is the winner by comparing score
-    private Player determineWinner(){
+    public static Player determineWinner(Player player1, Player player2){
         if(player1.getScore() > player2.getScore()){
             System.out.println("Player 1 is the winner");
             return player1;
