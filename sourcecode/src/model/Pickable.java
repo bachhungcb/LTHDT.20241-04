@@ -1,7 +1,7 @@
 package model;
 
 public interface Pickable {
-    public default boolean isPickable(){
-        return false;
+    public boolean isPickable() {
+        return true;
     }
 }

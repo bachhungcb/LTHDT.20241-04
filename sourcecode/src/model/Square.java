@@ -1,17 +1,11 @@
 package model;
 
 import gem.Gem;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Square extends Cell{
+public class Square extends Cell implements Pickable{
 
-    private int position;
-    private List<Gem> gems;
-
-    public Square(int position) {
-        this.position = position;
-        this.gems = new ArrayList<>();
+    public Square(int position, boolean isUpperRow, int numberOfGems) {
+        super(position, isUpperRow, numberOfGems);
     }
 
     // Phương thức thêm sỏi vào bán cầu
@@ -25,17 +19,25 @@ public class Square extends Cell{
 	}
 
     public int getGemsCount() {
-
-        return position;
+        return getNUmberOfGems();
     }
 
     public boolean isEmpty() {
-        return false;
+        return gems.isEmpty();
     }
 
     public boolean isPickable() {
         return true;
     }
-
+    //method toString() trong Square
+    @Override
+    public String toString() {
+        return "Square{" +
+                "position=" + getPosition() +
+                ", isUpperRow=" + isUpperRow() +
+                ", gemsCount=" + getGemsCount() +
+                ", score=" + calculateScore() +
+                '}';
+    }
 
 }
