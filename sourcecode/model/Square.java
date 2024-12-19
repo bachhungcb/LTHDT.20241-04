@@ -26,7 +26,7 @@ public class Square extends Cell implements Pickable{
         return gems.isEmpty();
     }
 
-
+    @Override
     public boolean isPickable() {
         return true;
     }

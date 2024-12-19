@@ -1,4 +1,5 @@
 package screen.controller;
+import game.Game;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -25,7 +26,8 @@ import model.GameBoard;
 import model.Player;
 
 public class PlayScreenController implements Initializable {
-	private final Player player1, player2;
+	private Player player1;
+    private Player player2;
 	private Player currentPlayer;
 	private final GameBoard board;
 	public static int cell_Num;
@@ -277,11 +279,13 @@ public class PlayScreenController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO
-		if (player1 != null) {
-			player1.setInTurn(Math.random() < 0.5);
-		} else {
-			System.out.println("Player1 is not initialized.");
+		if(player1 == null){
+			player1 = new Player(1, "Bach", 0, false);
 		}
+		if (player2 == null){
+			player2 = new Player(2, "Huy", 0, true);
+		}
+		player1.setInTurn(true);
 
         if (player1.isInTurn()) {
 			player2.setInTurn(false);
@@ -384,7 +388,8 @@ public class PlayScreenController implements Initializable {
 			setNumGems(boardList);
 			setScore();
 		}	
-		if (!(isGameOver(this.board.getCells()))) {
+		if (!(Cell.isGameOver(this.board.getCells()))) {
+			checkAndDistributeGems();
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
@@ -425,13 +430,14 @@ public class PlayScreenController implements Initializable {
 			setScore();
 		}
 		
-		if (!(isGameOver(this.board.getCells()))) {
+		if (!(Cell.isGameOver(this.board.getCells()))) {
+			checkAndDistributeGems();
 			changeTurn();
-
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
 				pane.setDisable(true);
 			}
+			displayEndGameScreen();
 		}
 	   	System.out.println(player1.isInTurn());
     }
@@ -457,43 +463,17 @@ public class PlayScreenController implements Initializable {
     	player2Score.setText("" + this.player2.getScore());
     }
 
-	public static boolean isGameOver(Cell[] cells) {
-		boolean upperSquaresEmpty = true;
-		boolean lowerSquaresEmpty = true;
-		boolean upperHalfCircleEmpty = false;
-		boolean lowerHalfCircleEmpty = false;
-		// Check the status of the squares and half-circles
-		for (Cell cell : cells) {
-			if (cell.isHalfCircle()) {
-				if (cell.isUpperRow()) {
-					upperHalfCircleEmpty = cell.isEmpty();
-				} else {
-					lowerHalfCircleEmpty = cell.isEmpty();
-				}
-			} else {
-				if (cell.isUpperRow()) {
-					// If any upper row cell is not empty, mark upper squares as not empty
-					if (!cell.isEmpty()) {
-						upperSquaresEmpty = false;
-					}
-				} else {
-					// If any lower row cell is not empty, mark lower squares as not empty
-					if (!cell.isEmpty()) {
-						lowerSquaresEmpty = false;
-					}
-				}
-			}
-		}
-		return (upperHalfCircleEmpty && lowerHalfCircleEmpty) ||
-				upperSquaresEmpty ||
-				lowerSquaresEmpty;
-
-	}
-
 	public void displayEndGameScreen() {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("End Game");
 		alert.setHeaderText("End Game");
+		Player winner = Game.determineWinner(player1, player2);
+		if(winner != null){
+			endGameContent = "The winner is: " + winner.getName() + " score: " + winner.getScore();
+
+		}else {
+			endGameContent = "";
+		}
 		alert.setContentText(endGameContent);
 		Optional<ButtonType> res = alert.showAndWait();
 		if(res.get() == ButtonType.OK) {
@@ -506,47 +486,52 @@ public class PlayScreenController implements Initializable {
 		}
 
 	}
-	
+
 	public void changeTurn() {
 		if (this.currentPlayer == this.player1) {
 			this.player1.setInTurn(false);
 			this.player2.setInTurn(true);
-			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
+			for (Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
 				pane.setDisable(true);
 			}
-			for(Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
+			for (Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
 				pane.setDisable(isPaneEmpty(pane));
 			}
 			player1Badge.setVisible(false);
 			player2Badge.setVisible(true);
-		}else {
+		} else {
 			this.player1.setInTurn(true);
 			this.player2.setInTurn(false);
-			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
+			for (Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
 				pane.setDisable(isPaneEmpty(pane));
 			}
-			for(Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
+			for (Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
 				pane.setDisable(true);
 			}
 			player1Badge.setVisible(true);
 			player2Badge.setVisible(false);
 		}
 	}
+
 	public static boolean isPaneEmpty(Pane pane) {
-	    boolean empty = false;
-		for (Node n : pane.getChildren()) {
-		    if (n instanceof Label) {
-		        String text = ((Label)n).getText();
-		        if (text.equals("" + '0')) {
-			    empty = true;
-			    break;
-			    }
-            }
+		for (Node node : pane.getChildren()) {
+			if (node instanceof Label) {
+				Label label = (Label) node;
+				try {
+					int gemsCount = Integer.parseInt(label.getText());
+					if (gemsCount > 0) {
+						return false; // Pane is not empty
+					}
+				} catch (NumberFormatException e) {
+					// Ignore labels that do not contain numeric values
+				}
+			}
 		}
-		return empty;
-    }
-	
-    @FXML
+		return true; // Pane is empty
+	}
+
+
+	@FXML
     void adjustMusic(MouseEvent event) {
 		if (this.playMusic) {
 			this.playMusic = false;
@@ -564,6 +549,18 @@ public class PlayScreenController implements Initializable {
 	    }
 
     }
+
+	public void checkAndDistributeGems() {
+		if (this.currentPlayer == this.player1) {
+			if (player1.areAllCellsEmpty(player1.getCellsOnSide())) {
+				player1.borrowGemsIfNeeded(board); // Call distributeGem for Player 1
+			}
+		} else {
+			if (player2.areAllCellsEmpty(player2.getCellsOnSide())) {
+				player2.borrowGemsIfNeeded(board); // Call distributeGem for Player 2
+			}
+		}
+	}
 
 }
  

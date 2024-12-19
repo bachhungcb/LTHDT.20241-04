@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,17 +31,30 @@ public class Player {
         this.numOfGemsBorrowed = 0;
     }
 
-    public int getScore() { return score; }
-    public boolean isUpperRow() { return isUpperRow; }
-    public boolean isInTurn() { return inTurn; }
+    public int getScore() {
+        return score;
+    }
+
+    public boolean isUpperRow() {
+        return isUpperRow;
+    }
+
+    public boolean isInTurn() {
+        return inTurn;
+    }
+
     public String getName() {
         return name;
     }
+
     public ArrayList<Cell> getCellsOnSide() {
         return cellsOnSide;
     }
 
-    public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
+    public void setInTurn(boolean inTurn) {
+        this.inTurn = inTurn;
+    }
+
     public void setCellsOnSide(ArrayList<Cell> cellsOnSide) {
         this.cellsOnSide = cellsOnSide;
     }
@@ -90,94 +104,77 @@ public class Player {
 
         // Kiểm tra ô tiếp theo
         Cell nextCell = (handDirection == 0) ? board.getNextCellClockwise(handPosition) : board.getNextCellCounterClockwise(handPosition);
-        
+
         if (nextCell.isEmpty()) {
             // Nếu ô tiếp theo trống → kiểm tra ô sau để ăn sỏi 
             Cell nextNextCell = (handDirection == 0) ? board.getNextCellClockwise(nextCell) : board.getNextCellCounterClockwise(nextCell);
             // ô sau k trống thì ăn sỏi 
-            if (!nextNextCell.isEmpty() && !(nextNextCell instanceof HalfCircle)) {
+            if (!nextNextCell.isEmpty()) { // && !(nextNextCell instanceof HalfCircle)
                 earnGemFrom(nextNextCell);
-            }
-            else if(nextNextCell.isEmpty()) {
-            	// mất lượt nếu 2 ô trống liên tiếp
-            	this.inTurn=false;
-            	return;
+            } else if (nextNextCell.isEmpty()) {
+                // mất lượt nếu 2 ô trống liên tiếp
+                this.inTurn = false;
+                return;
             }
         } else if (!(nextCell instanceof HalfCircle)) {
             // Nếu ô tiếp theo có sỏi → nhặt và rải tiếp ( i+1 có sỏi và k phải là ô quan)
             pickUpGemFrom(nextCell);
             spreadGem(nextCell, handDirection, board);
+        } else if (nextCell instanceof HalfCircle) {
+            // mất lượt chơi nếu ô i+1 là ô quan
+            this.inTurn = false;
+            return;
         }
-        else if(nextCell instanceof HalfCircle) {
-        	// mất lượt chơi nếu ô i+1 là ô quan
-        	this.inTurn=false;
-        	return;
-        }
-        
+
     }
-   public void QuanNon(Cell cell) {
-	   if (cell instanceof HalfCircle) {
-		   // số dân ở ô quan <5 thì sẽ vào trh quan non và đổi lượt chơi 
-           int k=cell.calculateScore();
-           if(k<5) {
-        	   this.inTurn=false;
-           }
-   }
-   }
 
-// Kiểm tra và mượn sỏi khi cần thiết
-   public void borrowGemsIfNeeded(GameBoard board) {
-	    boolean allEmpty = true; // Giả định tất cả ô trống ban đầu
+    public void QuanNon(Cell cell) {
+        if (cell instanceof HalfCircle) {
+            // số dân ở ô quan <5 thì sẽ vào trh quan non và đổi lượt chơi
+            int k = cell.calculateScore();
+            if (k < 5) {
+                this.inTurn = false;
+            }
+        }
+    }
 
-	    // Xác định các vị trí cần kiểm tra
-	    int[] positions1 = new int[]{1, 2, 3, 4, 5};
-	    int[] positions2 = new int[]{6, 7, 8, 9, 10};
+    // Kiểm tra và mượn sỏi khi cần thiết
+    public void borrowGemsIfNeeded(GameBoard board) {
+        boolean allEmpty = true; // Giả định tất cả ô trống ban đầu
 
-	    List<Cell> cells = Arrays.asList(board.getCells()); // Giả định GameBoard có danh sách các ô
+        // Xác định các vị trí cần kiểm tra
+        int[] positions1 = new int[]{1, 2, 3, 4, 5}; //lower-row
+        int[] positions2 = new int[]{7, 8, 9, 10, 11}; //upper-row
 
-	    // Kiểm tra các ô trong hàng trên hoặc dưới
-	    if (this.isUpperRow()) {
-	        allEmpty = areAllCellsEmpty(cells, positions1);
-	    } else {
-	        allEmpty = areAllCellsEmpty(cells, positions2);
-	    }
+        List<Cell> cells = Arrays.asList(board.getCells()); // Giả định GameBoard có danh sách các ô
 
-	    // Nếu tất cả ô trống và điểm số >= 5, mượn 5 viên sỏi
-	    if (allEmpty && this.score >= 5) {
-	        System.out.println("Borrowing 5 gems to continue...");
-	        this.score -= 5; // Trừ 5 điểm
-	        this.numOfGemsBorrowed += 5;
 
-	        // Thêm 5 viên sỏi nhỏ vào ô vuông đầu tiên phù hợp
-	        addGemsToFirstSquare(cells, positions1, 5);
-	    }
-	}
+        // Nếu tất cả ô trống và điểm số >= 5, mượn 5 viên sỏi
+        if (areAllCellsEmpty(cellsOnSide)) {
+            System.out.println("Borrowing 5 gems to continue...");
+            this.score -= 5; // Trừ 5 điểm
+            addGemsToFirstSquare(cellsOnSide);
+        }
+    }
 
-	// Kiểm tra xem tất cả các ô được chỉ định có trống không
-	private boolean areAllCellsEmpty(List<Cell> cells, int[] positions) {
-	    for (int pos : positions) {
-	        for (Cell cell : cells) {
-	            if (cell.getPosition() == pos && !cell.isEmpty()) {
-	                return false; // Có ít nhất một ô không trống
-	            }
-	        }
-	    }
-	    return true; // Tất cả ô đều trống
-	}
+    // Kiểm tra xem tất cả các ô được chỉ định có trống không
+    public boolean areAllCellsEmpty(List<Cell> cells) {
+        for (Cell cell : cells) {
+            if (!cell.isEmpty()) {
+                return false; // Có ít nhất một ô không trống
+            }
+        }
 
-	// Thêm số lượng sỏi nhỏ vào ô vuông đầu tiên phù hợp
-	private void addGemsToFirstSquare(List<Cell> cells, int[] positions, int numOfGems) {
-	    for (int pos : positions) {
-	        for (Cell cell : cells) {
-	            if (cell.getPosition() == pos && cell instanceof Square) {
-	                for (int i = 0; i < numOfGems; i++) {
-	                    cell.addGem(new SmallGem(cell));
-	                }
-	                return; // Thêm xong thì thoát
-	            }
-	        }
-	    }
-	}
+        return true; // Tất cả ô đều trống
+    }
+
+    // Thêm số lượng sỏi nhỏ vào ô vuông đầu tiên phù hợp
+    private void addGemsToFirstSquare(List<Cell> cells) {
+        for (Cell cell : cells) {
+            cell.addGem(new SmallGem(cell));
+        }
+    }
+
 
     @Override
     public String toString() {
