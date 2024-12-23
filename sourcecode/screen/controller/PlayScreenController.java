@@ -308,13 +308,13 @@ public class PlayScreenController implements Initializable {
 				player1Badge.setVisible(false);
 				player2Badge.setVisible(true);
 		}
-	    try {
-	          this.media = new Media(getClass().getResource("/screen/music/gameMusic.mp3").toURI().toString());
-	        } catch (URISyntaxException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	        this.mediaPlayer = new MediaPlayer(this.media);
+//	    try {
+//	          this.media = new Media(getClass().getResource("/screen/music/gameMusic.mp3").toURI().toString());
+//	        } catch (URISyntaxException e) {
+//	            // TODO Auto-generated catch block
+//	            e.printStackTrace();
+//	        }
+//	        this.mediaPlayer = new MediaPlayer(this.media);
 			
 		
 	    ArrayList <Cell> Player1CellOnSide = new ArrayList<Cell>();
