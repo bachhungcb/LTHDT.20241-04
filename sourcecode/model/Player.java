@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import gem.Gem;
@@ -124,27 +123,8 @@ public class Player {
 
     }
 
-    public void QuanNon(Cell cell) {
-        if (cell instanceof HalfCircle) {
-            // số dân ở ô quan <5 thì sẽ vào trh quan non và đổi lượt chơi
-            int k = cell.calculateScore();
-            if (k < 5) {
-                this.inTurn = false;
-            }
-        }
-    }
-
     // Kiểm tra và mượn sỏi khi cần thiết
     public void borrowGemsIfNeeded(GameBoard board) {
-        boolean allEmpty = true; // Giả định tất cả ô trống ban đầu
-
-        // Xác định các vị trí cần kiểm tra
-        int[] positions1 = new int[]{1, 2, 3, 4, 5}; //lower-row
-        int[] positions2 = new int[]{7, 8, 9, 10, 11}; //upper-row
-
-        List<Cell> cells = Arrays.asList(board.getCells()); // Giả định GameBoard có danh sách các ô
-
-
         // Nếu tất cả ô trống và điểm số >= 5, mượn 5 viên sỏi
         if (areAllCellsEmpty(cellsOnSide)) {
             System.out.println("Borrowing 5 gems to continue...");
