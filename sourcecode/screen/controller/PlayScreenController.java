@@ -41,10 +41,11 @@ public class PlayScreenController implements Initializable {
 	private String endGameContent;
 	private ShareData data;
 
-	public PlayScreenController(GameBoard board, Player player1, Player player2) {
+	public PlayScreenController(GameBoard board, Player player1, Player player2, ShareData data) {
 		this.player1 = player1;
 		this.player2 = player2;
 		this.board = board;
+		this.data = data;
 	}
 
 	@FXML
@@ -344,7 +345,7 @@ public class PlayScreenController implements Initializable {
 
 		String id = paneChosen.getId();
 		cell_Num = Integer.parseInt(id.substring(id.length()-2));
-		System.out.println(cell_Num);
+		System.out.println("Cell num: " + cell_Num);
 
 		// set invisible for all arrows and its button
 		for(ImageView imageView : Arrays.asList(imgLeftArrow1, imgLeftArrow2, imgLeftArrow3, imgLeftArrow4, imgLeftArrow5,
@@ -367,7 +368,8 @@ public class PlayScreenController implements Initializable {
 
 	@FXML
 	void leftDirectionChosen(ActionEvent event) {
-		System.out.println(player1.isInTurn());
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
+		checkAndDistributeGems();
 		Pane paneChosen = (Pane) ((Node) event.getTarget()).getParent();
 		System.out.println("pane chosen: " + paneChosen);
 		String id = paneChosen.getId();
@@ -394,20 +396,22 @@ public class PlayScreenController implements Initializable {
 			setScore();
 		}
 		if (!(Cell.isGameOver(this.board.getCells()))) {
-			checkAndDistributeGems();
+
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
 				pane.setDisable(true);
 			}
+			displayEndGameScreen(event);
 		}
-		System.out.println(player1.isInTurn());
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
 
 	}
 
 	@FXML
 	void rightDirectionChosen(ActionEvent event) {
-		System.out.println(player1.isInTurn());
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
+		checkAndDistributeGems();
 		Pane paneChosen = (Pane) ((Node) event.getTarget()).getParent();
 		System.out.println("pane chosen: " + paneChosen);
 		String id = paneChosen.getId();
@@ -436,15 +440,15 @@ public class PlayScreenController implements Initializable {
 		}
 
 		if (!(Cell.isGameOver(this.board.getCells()))) {
-			checkAndDistributeGems();
+
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
 				pane.setDisable(true);
 			}
-			displayEndGameScreen();
+			displayEndGameScreen(event);
 		}
-		System.out.println(player1.isInTurn());
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
 	}
 
 	public void setNumGems(Cell[] boardList) {
@@ -476,7 +480,7 @@ public class PlayScreenController implements Initializable {
 			final String INTRO_SCREEN_FILE_PATH = "/screen/view/IntroScreen.fxml";
 
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(INTRO_SCREEN_FILE_PATH));
-			fxmlLoader.setController(new IntroScreenController(board, player1, player2));
+			fxmlLoader.setController(new IntroScreenController(board, player1, player2, data));
 			Parent root = fxmlLoader.load();
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -489,14 +493,34 @@ public class PlayScreenController implements Initializable {
 
 
 	}
-	public void displayEndGameScreen() {
 
+	@FXML
+	public void displayEndGameScreen(ActionEvent event) {
 		Player winner = Game.determineWinner(player1, player2);
-		if(winner != null) {
+		System.out.println("The winner is >>>: " + winner.getName() + winner.getScore());
+
+		if (winner != null) {
 			data.setWinnerName(winner.getName());
-			data.setWinnerScore(winner.getScore());
+			data.setWinnerScore(String.valueOf(winner.getScore()));  // Ensure score is a String
+
+			try {
+				final String END_GAME_SCREEN_FILE_PATH = "/screen/view/EndScreen.fxml";
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(END_GAME_SCREEN_FILE_PATH));
+				EndScreenController endScreenController = new EndScreenController(board,player1,player2,data);
+				fxmlLoader.setController(endScreenController);
+
+				Parent root = fxmlLoader.load();
+
+				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				stage.setScene(new Scene(root));
+				stage.setTitle("End Screen");
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
+
 
 	public void changeTurn() {
 		if (this.currentPlayer == this.player1) {
