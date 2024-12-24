@@ -18,12 +18,13 @@ public class PlayScreen extends Application {
     private static GameBoard board;
     private static Player player1;
     private static Player player2;
-
+    private static ShareData data;
     @Override
     public void start(Stage primaryStage) {
+        data = new ShareData();
         // Correct relative path to the FXML file
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/screen/view/PlayScreen.fxml"));
-        PlayScreenController playScreenController = new PlayScreenController(board, player1, player2);
+        PlayScreenController playScreenController = new PlayScreenController(board, player1, player2, data);
         fxmlLoader.setController(playScreenController);
 
         Parent root = null;
