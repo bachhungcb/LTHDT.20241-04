@@ -6,8 +6,6 @@ import gem.SmallGem;
 public class GameBoard {
     private static final int numSquare = 10;
     private final int numHalfCircle = 2;  // even number
-    private final int numSmallGem = 50;
-    private final int numBigGem = 2;
     private Cell[] cells = new Cell[numHalfCircle + numSquare];
 
     // Constructor
@@ -36,9 +34,6 @@ public class GameBoard {
     public Cell[] getCells() {
         return cells;
     }
-
-    public int getNumSmallGem(){return numSmallGem;}
-    public int getNumBigGem(){return numBigGem;}
 
 
     public Cell[] getBoard(){

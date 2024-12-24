@@ -65,8 +65,6 @@ public abstract class Cell {
 
     // method kiem tra ket thuc game (2 halfcircle rong hoac hang square tren rong hoac hang square duoi rong
     public static boolean isGameOver(Cell[] cells) {
-        boolean upperSquaresEmpty = true;
-        boolean lowerSquaresEmpty = true;
         boolean upperHalfCircleEmpty = false;
         boolean lowerHalfCircleEmpty = false;
         // Check the status of the squares and half-circles
