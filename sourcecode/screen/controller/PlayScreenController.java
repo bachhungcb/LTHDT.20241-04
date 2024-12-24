@@ -2,14 +2,17 @@ package screen.controller;
 import game.Game;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import java.net.URISyntaxException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -24,10 +27,11 @@ import javafx.scene.image.ImageView;
 import model.Cell;
 import model.GameBoard;
 import model.Player;
+import screen.application.ShareData;
 
 public class PlayScreenController implements Initializable {
 	private Player player1;
-    private Player player2;
+	private Player player2;
 	private Player currentPlayer;
 	private final GameBoard board;
 	public static int cell_Num;
@@ -35,21 +39,23 @@ public class PlayScreenController implements Initializable {
 	private Media media;
 	private MediaPlayer mediaPlayer = null;
 	private String endGameContent;
+	private ShareData data;
 
-    public PlayScreenController(GameBoard board, Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.board = board;
-    }
-    
-    @FXML
-    private ImageView Mute;
-    
-    @FXML
-    private ImageView unMute;
-    
-    @FXML
-    private Button adjustMusicButton;
+	public PlayScreenController(GameBoard board, Player player1, Player player2, ShareData data) {
+		this.player1 = player1;
+		this.player2 = player2;
+		this.board = board;
+		this.data = data;
+	}
+
+	@FXML
+	private ImageView Mute;
+
+	@FXML
+	private ImageView unMute;
+
+	@FXML
+	private Button adjustMusicButton;
 
 	@FXML
 	private Button btnExit;
@@ -287,59 +293,59 @@ public class PlayScreenController implements Initializable {
 		}
 		player1.setInTurn((Math.random()) < 0.5);
 
-        if (player1.isInTurn()) {
+		if (player1.isInTurn()) {
 			player2.setInTurn(false);
-		    for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
-			    pane.setDisable(false);
-				}
-		    for(Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
-			    pane.setDisable(true);
-				}
-				player1Badge.setVisible(true);
-				player2Badge.setVisible(false);
+			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
+				pane.setDisable(false);
+			}
+			for(Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
+				pane.setDisable(true);
+			}
+			player1Badge.setVisible(true);
+			player2Badge.setVisible(false);
 		}else {
 			player2.setInTurn(true);
-		    for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
-			    pane.setDisable(true);
-				}
-		    for(Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
-			    pane.setDisable(false);
-				}
-				player1Badge.setVisible(false);
-				player2Badge.setVisible(true);
+			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
+				pane.setDisable(true);
+			}
+			for(Pane pane : Arrays.asList(cell07, cell08, cell09, cell10, cell11)) {
+				pane.setDisable(false);
+			}
+			player1Badge.setVisible(false);
+			player2Badge.setVisible(true);
 		}
-	    try {
-	          this.media = new Media(getClass().getResource("/screen/music/gameMusic.mp3").toURI().toString());
-	        } catch (URISyntaxException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	        this.mediaPlayer = new MediaPlayer(this.media);
-			
-		
-	    ArrayList <Cell> Player1CellOnSide = new ArrayList<Cell>();
-	    ArrayList <Cell> Player2CellOnSide = new ArrayList<Cell>();
-	    Cell[] boardList = board.getBoard();
+//		try {
+//		//	this.media = new Media(getClass().getResource("/screen/music/gameMusic.mp3").toURI().toString());
+//		} catch (URISyntaxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		this.mediaPlayer = new MediaPlayer(this.media);
 
-	    for (int i = 1; i < 6; i ++) { 
-	        Player1CellOnSide.add(boardList[i]);
-	     }
-	    for (int i = 7; i < 12; i ++) {
-	        Player2CellOnSide.add(boardList[i]);
-	     }
-	    player1.setCellsOnSide(Player1CellOnSide);
-	    player2.setCellsOnSide(Player2CellOnSide);
-		
+
+		ArrayList <Cell> Player1CellOnSide = new ArrayList<Cell>();
+		ArrayList <Cell> Player2CellOnSide = new ArrayList<Cell>();
+		Cell[] boardList = board.getBoard();
+
+		for (int i = 1; i < 6; i ++) {
+			Player1CellOnSide.add(boardList[i]);
+		}
+		for (int i = 7; i < 12; i ++) {
+			Player2CellOnSide.add(boardList[i]);
+		}
+		player1.setCellsOnSide(Player1CellOnSide);
+		player2.setCellsOnSide(Player2CellOnSide);
+
 	}
 
-    @FXML
-    void cellChosen(MouseEvent event) {
+	@FXML
+	void cellChosen(MouseEvent event) {
 		Pane paneChosen = (Pane) event.getPickResult().getIntersectedNode();
 		ObservableList<Node> childrenElements = paneChosen.getChildren();
 
 		String id = paneChosen.getId();
 		cell_Num = Integer.parseInt(id.substring(id.length()-2));
-		System.out.println(cell_Num);
+		System.out.println("Cell num: " + cell_Num);
 
 		// set invisible for all arrows and its button
 		for(ImageView imageView : Arrays.asList(imgLeftArrow1, imgLeftArrow2, imgLeftArrow3, imgLeftArrow4, imgLeftArrow5,
@@ -358,18 +364,19 @@ public class PlayScreenController implements Initializable {
 		for(Node node:childrenElements) {
 			node.setVisible(true);
 		}
-    }
+	}
 
-    @FXML
-    void leftDirectionChosen(ActionEvent event) {
-    	System.out.println(player1.isInTurn());
+	@FXML
+	void leftDirectionChosen(ActionEvent event) {
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
+		checkAndDistributeGems();
 		Pane paneChosen = (Pane) ((Node) event.getTarget()).getParent();
 		System.out.println("pane chosen: " + paneChosen);
 		String id = paneChosen.getId();
 		int index = Integer.parseInt(id.substring(id.length()-2));
 
 		Cell[] boardList = this.board.getBoard();
-        if(this.player1.isInTurn()) {
+		if(this.player1.isInTurn()) {
 			this.currentPlayer = this.player1;
 		} else {
 			this.currentPlayer = this.player2;
@@ -387,22 +394,24 @@ public class PlayScreenController implements Initializable {
 			currentPlayer.spreadGem(boardList[index], 0, this.board);
 			setNumGems(boardList);
 			setScore();
-		}	
+		}
 		if (!(Cell.isGameOver(this.board.getCells()))) {
-			checkAndDistributeGems();
+
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
 				pane.setDisable(true);
 			}
+			displayEndGameScreen(event);
 		}
-	   	System.out.println(player1.isInTurn());
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
 
-    }
+	}
 
-    @FXML
-    void rightDirectionChosen(ActionEvent event) {
-       	System.out.println(player1.isInTurn());
+	@FXML
+	void rightDirectionChosen(ActionEvent event) {
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
+		checkAndDistributeGems();
 		Pane paneChosen = (Pane) ((Node) event.getTarget()).getParent();
 		System.out.println("pane chosen: " + paneChosen);
 		String id = paneChosen.getId();
@@ -429,63 +438,89 @@ public class PlayScreenController implements Initializable {
 			setNumGems(boardList);
 			setScore();
 		}
-		
+
 		if (!(Cell.isGameOver(this.board.getCells()))) {
-			checkAndDistributeGems();
+
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
 				pane.setDisable(true);
 			}
-			displayEndGameScreen();
+			displayEndGameScreen(event);
 		}
-	   	System.out.println(player1.isInTurn());
-    }
-    
-    public void setNumGems(Cell[] boardList) {
-  	    numOfGems0.setText("" + boardList[0].getGems().size());
-    	numOfGems1.setText("" + boardList[1].getGems().size());
-    	numOfGems2.setText("" + boardList[2].getGems().size());
-    	numOfGems3.setText("" + boardList[3].getGems().size());
-    	numOfGems4.setText("" + boardList[4].getGems().size());
-    	numOfGems5.setText("" + boardList[5].getGems().size());
-    	numOfGems6.setText("" + boardList[6].getGems().size());
-    	numOfGems7.setText("" + boardList[7].getGems().size());
-    	numOfGems8.setText("" + boardList[8].getGems().size());
-    	numOfGems9.setText("" + boardList[9].getGems().size());
-    	numOfGems10.setText("" + boardList[10].getGems().size());
-    	numOfGems11.setText("" + boardList[11].getGems().size());
-    	
-    }
-    
-    public void setScore() {
-    	player1Score.setText("" + this.player1.getScore());
-    	player2Score.setText("" + this.player2.getScore());
-    }
+		System.out.println("PLayer 1 turn: " + player1.isInTurn());
+	}
 
-	public void displayEndGameScreen() {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("End Game");
-		alert.setHeaderText("End Game");
-		Player winner = Game.determineWinner(player1, player2);
-		if(winner != null){
-			endGameContent = "The winner is: " + winner.getName() + " score: " + winner.getScore();
-
-		}else {
-			endGameContent = "";
-		}
-		alert.setContentText(endGameContent);
-		Optional<ButtonType> res = alert.showAndWait();
-		if(res.get() == ButtonType.OK) {
-			// quit game
-			Stage stage = (Stage) btnExit.getScene().getWindow();
-			stage.close();
-		} else {
-			// close dialog
-			alert.close();
-		}
+	public void setNumGems(Cell[] boardList) {
+		numOfGems0.setText("" + boardList[0].getGems().size());
+		numOfGems1.setText("" + boardList[1].getGems().size());
+		numOfGems2.setText("" + boardList[2].getGems().size());
+		numOfGems3.setText("" + boardList[3].getGems().size());
+		numOfGems4.setText("" + boardList[4].getGems().size());
+		numOfGems5.setText("" + boardList[5].getGems().size());
+		numOfGems6.setText("" + boardList[6].getGems().size());
+		numOfGems7.setText("" + boardList[7].getGems().size());
+		numOfGems8.setText("" + boardList[8].getGems().size());
+		numOfGems9.setText("" + boardList[9].getGems().size());
+		numOfGems10.setText("" + boardList[10].getGems().size());
+		numOfGems11.setText("" + boardList[11].getGems().size());
 
 	}
+
+	public void setScore() {
+		player1Score.setText("" + this.player1.getScore());
+		player2Score.setText("" + this.player2.getScore());
+	}
+
+	@FXML
+	void btnBackFromHelpScreenClicked(ActionEvent event) {
+		try {
+			// TODO while playing: just a pop-up
+
+			final String INTRO_SCREEN_FILE_PATH = "/screen/view/IntroScreen.fxml";
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(INTRO_SCREEN_FILE_PATH));
+			fxmlLoader.setController(new IntroScreenController(board, player1, player2, data));
+			Parent root = fxmlLoader.load();
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+			stage.setScene(new Scene(root));
+			stage.setTitle("Intro Screen");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+
+	@FXML
+	public void displayEndGameScreen(ActionEvent event) {
+		Player winner = Game.determineWinner(player1, player2);
+		System.out.println("The winner is >>>: " + winner.getName() + winner.getScore());
+
+		if (winner != null) {
+			data.setWinnerName(winner.getName());
+			data.setWinnerScore(String.valueOf(winner.getScore()));  // Ensure score is a String
+
+			try {
+				final String END_GAME_SCREEN_FILE_PATH = "/screen/view/EndScreen.fxml";
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(END_GAME_SCREEN_FILE_PATH));
+				EndScreenController endScreenController = new EndScreenController(board,player1,player2,data);
+				fxmlLoader.setController(endScreenController);
+
+				Parent root = fxmlLoader.load();
+
+				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				stage.setScene(new Scene(root));
+				stage.setTitle("End Screen");
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 	public void changeTurn() {
 		if (this.currentPlayer == this.player1) {
@@ -532,23 +567,23 @@ public class PlayScreenController implements Initializable {
 
 
 	@FXML
-    void adjustMusic(MouseEvent event) {
-		if (this.playMusic) {
-			this.playMusic = false;
-	        Mute.setVisible(false);
-	        unMute.setVisible(true);
-	    }else {
-	        this.playMusic = true;
-	        Mute.setVisible(true);
-	        unMute.setVisible(false);
-	        }
-	    if (this.playMusic) {
-	        this.mediaPlayer.play();
-	    }else {
-	        this.mediaPlayer.stop();
-	    }
+	void adjustMusic(MouseEvent event) {
+//		if (this.playMusic) {
+//			this.playMusic = false;
+//			Mute.setVisible(false);
+//			unMute.setVisible(true);
+//		}else {
+//			this.playMusic = true;
+//			Mute.setVisible(true);
+//			unMute.setVisible(false);
+//		}
+//		if (this.playMusic) {
+//			this.mediaPlayer.play();
+//		}else {
+//			this.mediaPlayer.stop();
+//		}
 
-    }
+	}
 
 	public void checkAndDistributeGems() {
 		if (this.currentPlayer == this.player1) {
@@ -563,4 +598,3 @@ public class PlayScreenController implements Initializable {
 	}
 
 }
- 

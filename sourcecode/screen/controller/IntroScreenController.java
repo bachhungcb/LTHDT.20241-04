@@ -12,6 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import model.GameBoard;
 import model.Player;
+import screen.application.ShareData;
 
 
 import java.io.IOException;
@@ -22,10 +23,12 @@ public class IntroScreenController {
     private final GameBoard board;
     private final Player player1;
     private final Player player2;
-    public IntroScreenController (GameBoard board, Player player1, Player player2) {
+    private final ShareData data;
+    public IntroScreenController (GameBoard board, Player player1, Player player2, ShareData data) {
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
+        this.data = data;
     }
 
 
@@ -43,7 +46,7 @@ public class IntroScreenController {
         try {
             final String HELP_SCREEN_FILE_PATH = "/screen/view/HelpScreen.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(HELP_SCREEN_FILE_PATH));
-            fxmlLoader.setController(new HelpScreenController(board, player1, player2));
+            fxmlLoader.setController(new HelpScreenController(board, player1, player2, data));
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -83,7 +86,7 @@ public class IntroScreenController {
 
             final String PLAY_SCREEN_FILE_PATH = "/screen/view/PlayScreen.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(PLAY_SCREEN_FILE_PATH));
-            fxmlLoader.setController(new PlayScreenController(board, player1, player2));
+            fxmlLoader.setController(new PlayScreenController(board, player1, player2, data));
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

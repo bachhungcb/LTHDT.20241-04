@@ -27,8 +27,8 @@ public class Player {
         this.numOfGemsInHand = 0;
     }
 
-    public int getScore() {
-        return score;
+    public String getScore() {
+        return String.valueOf(score);
     }
 
     public boolean isUpperRow() {

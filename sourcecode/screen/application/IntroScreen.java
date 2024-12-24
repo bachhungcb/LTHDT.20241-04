@@ -16,12 +16,12 @@ public class IntroScreen extends Application {
 
     private static GameBoard board;
     private static Player player1, player2;
-
+    private static ShareData data;
     public void start(Stage primaryStage) {
-
+        data = new ShareData();
         final String INTRO_SCREEN_FXML_FILE_PATH = "/screen/view/IntroScreen.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(INTRO_SCREEN_FXML_FILE_PATH));
-        IntroScreenController IntroScreenController = new IntroScreenController(board, player1, player2);
+        IntroScreenController IntroScreenController = new IntroScreenController(board, player1, player2, data);
         fxmlLoader.setController(IntroScreenController);
         Parent root = null;
         try {

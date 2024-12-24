@@ -113,10 +113,10 @@ public class Game {
 
     //Check who is the winner by comparing score
     public static Player determineWinner(Player player1, Player player2) {
-        if (player1.getScore() > player2.getScore()) {
+        if (Integer.valueOf(player1.getScore()) > Integer.valueOf(player2.getScore())) {
             System.out.println("Player 1 is the winner");
             return player1;
-        } else if (player1.getScore() < player2.getScore()) {
+        } else if (Integer.valueOf(player1.getScore()) < Integer.valueOf(player2.getScore())) {
             System.out.println("Player 2 is the winner");
             return player2;
         }
