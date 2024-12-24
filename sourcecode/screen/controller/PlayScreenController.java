@@ -347,8 +347,25 @@ public class PlayScreenController implements Initializable {
 		cell_Num = Integer.parseInt(id.substring(id.length()-2));
 		System.out.println("Cell num: " + cell_Num);
 
-		// set invisible for all arrows and its button
-		for(ImageView imageView : Arrays.asList(imgLeftArrow1, imgLeftArrow2, imgLeftArrow3, imgLeftArrow4, imgLeftArrow5,
+		// Retrieve the Label text if present
+		String labelText = null;
+		for (Node child : childrenElements) {
+			if (child instanceof Label) {
+				Label label = (Label) child;
+				labelText = label.getText();
+				break; // Stop after finding the first Label
+			}
+		}
+
+		// Print the retrieved Label text
+		if (labelText != null) {
+			System.out.println("Label text: " + labelText);
+		} else {
+			System.out.println("No Label found in the Pane.");
+		}
+
+		// Set all arrows and buttons invisible
+		for (ImageView imageView : Arrays.asList(imgLeftArrow1, imgLeftArrow2, imgLeftArrow3, imgLeftArrow4, imgLeftArrow5,
 				imgLeftArrow7, imgLeftArrow8, imgLeftArrow9, imgLeftArrow10, imgLeftArrow11,
 				imgRightArrow1, imgRightArrow2, imgRightArrow3, imgRightArrow4, imgRightArrow5,
 				imgRightArrow7, imgRightArrow8, imgRightArrow9, imgRightArrow10, imgRightArrow11)) {
@@ -369,7 +386,6 @@ public class PlayScreenController implements Initializable {
 	@FXML
 	void leftDirectionChosen(ActionEvent event) {
 		System.out.println("PLayer 1 turn: " + player1.isInTurn());
-		checkAndDistributeGems();
 		Pane paneChosen = (Pane) ((Node) event.getTarget()).getParent();
 		System.out.println("pane chosen: " + paneChosen);
 		String id = paneChosen.getId();
@@ -396,7 +412,6 @@ public class PlayScreenController implements Initializable {
 			setScore();
 		}
 		if (!(Cell.isGameOver(this.board.getCells()))) {
-
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
@@ -411,9 +426,8 @@ public class PlayScreenController implements Initializable {
 	@FXML
 	void rightDirectionChosen(ActionEvent event) {
 		System.out.println("PLayer 1 turn: " + player1.isInTurn());
-		checkAndDistributeGems();
 		Pane paneChosen = (Pane) ((Node) event.getTarget()).getParent();
-		System.out.println("pane chosen: " + paneChosen);
+		System.out.println("Pane chosen: " + paneChosen);
 		String id = paneChosen.getId();
 		int index = Integer.parseInt(id.substring(id.length()-2));
 
@@ -440,7 +454,6 @@ public class PlayScreenController implements Initializable {
 		}
 
 		if (!(Cell.isGameOver(this.board.getCells()))) {
-
 			changeTurn();
 		}else {
 			for(Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05, cell07, cell08,  cell09, cell10, cell11)) {
@@ -523,7 +536,9 @@ public class PlayScreenController implements Initializable {
 
 
 	public void changeTurn() {
+		checkAndDistributeGems();
 		if (this.currentPlayer == this.player1) {
+			System.out.println("change turn");
 			this.player1.setInTurn(false);
 			this.player2.setInTurn(true);
 			for (Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
@@ -535,6 +550,7 @@ public class PlayScreenController implements Initializable {
 			player1Badge.setVisible(false);
 			player2Badge.setVisible(true);
 		} else {
+			System.out.println("change turn");
 			this.player1.setInTurn(true);
 			this.player2.setInTurn(false);
 			for (Pane pane : Arrays.asList(cell01, cell02, cell03, cell04, cell05)) {
