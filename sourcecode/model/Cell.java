@@ -56,10 +56,10 @@ public abstract class Cell {
 
     // Method to check if it's a half-circle
     public boolean isHalfCircle() {
-        if (!this.isUpperRow()) {
+        if (this.isUpperRow()) {
             return position == 0;  // Giả sử ô half-circle trên ở vị trí 0
         } else {
-            return position == 6;  // Giả sử ô half-circle dưới ở vị trí 11
+            return position == 6;  // Giả sử ô half-circle dưới ở vị trí 6
         }
     }
 
