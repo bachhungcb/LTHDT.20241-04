@@ -31,8 +31,8 @@ public class Player {
         this.numOfGemsBorrowed = 0;
     }
 
-    public int getScore() {
-        return score;
+    public String getScore() {
+        return String.valueOf(score);
     }
 
     public boolean isUpperRow() {

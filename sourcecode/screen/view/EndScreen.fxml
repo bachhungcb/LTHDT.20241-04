@@ -13,7 +13,7 @@
                 <Image url="@../images/end-screen.png" />
             </image>
         </ImageView>
-        <Button fx:id="btnBackFromEndScreen" layoutX="415.0" layoutY="648.0" mnemonicParsing="false" onAction="#btnBackFromHelpScreenClicked" opacity="0.0" prefHeight="43.0" prefWidth="195.0" text="Back">
+        <Button fx:id="btnBackFromEndScreen" layoutX="415.0" layoutY="648.0" mnemonicParsing="false" onAction="#btnBackFromEndScreenClicked" opacity="0.0" prefHeight="43.0" prefWidth="195.0" text="Back">
             <font>
                 <Font size="24.0" />
             </font>
