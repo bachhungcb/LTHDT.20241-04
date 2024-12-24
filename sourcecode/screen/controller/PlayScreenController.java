@@ -285,7 +285,7 @@ public class PlayScreenController implements Initializable {
 		if (player2 == null){
 			player2 = new Player(2, "Huy", 0, true);
 		}
-		player1.setInTurn(true);
+		player1.setInTurn((Math.random()) < 0.5);
 
         if (player1.isInTurn()) {
 			player2.setInTurn(false);
