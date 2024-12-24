@@ -15,11 +15,12 @@ import java.io.IOException;
 public class HelpScreen extends Application {
     private static GameBoard board;
     private static Player player1, player2;
-
+    private static ShareData data;
     public void start(Stage primaryStage) {
+        data = new ShareData();
         final String HELP_SCREEN_FXML_FILE_PATH = "/screen/view/HelpScreen.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(HELP_SCREEN_FXML_FILE_PATH));
-        HelpScreenController helpScreenController = new HelpScreenController(board, player1, player2);
+        HelpScreenController helpScreenController = new HelpScreenController(board, player1, player2, data);
         fxmlLoader.setController(helpScreenController);
         Parent root = null;
         try {
