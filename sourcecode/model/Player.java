@@ -15,8 +15,6 @@ public class Player {
     private Cell handPosition;
     private boolean inTurn;
     private int numOfGemsInHand;
-    private int numOfGemsLent;
-    private int numOfGemsBorrowed;
     private ArrayList<Cell> cellsOnSide = new ArrayList<Cell>();
 
     // Constructor
@@ -27,8 +25,6 @@ public class Player {
         this.isUpperRow = isUpperRow;
         this.inTurn = false;
         this.numOfGemsInHand = 0;
-        this.numOfGemsLent = 0;
-        this.numOfGemsBorrowed = 0;
     }
 
     public int getScore() {
