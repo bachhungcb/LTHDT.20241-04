@@ -465,18 +465,18 @@ public class PlayScreenController implements Initializable {
 	}
 
 	public void setNumGems(Cell[] boardList) {
-		numOfGems0.setText("" + boardList[0].getGems().size());
-		numOfGems1.setText("" + boardList[1].getGems().size());
-		numOfGems2.setText("" + boardList[2].getGems().size());
-		numOfGems3.setText("" + boardList[3].getGems().size());
-		numOfGems4.setText("" + boardList[4].getGems().size());
-		numOfGems5.setText("" + boardList[5].getGems().size());
-		numOfGems6.setText("" + boardList[6].getGems().size());
-		numOfGems7.setText("" + boardList[7].getGems().size());
-		numOfGems8.setText("" + boardList[8].getGems().size());
-		numOfGems9.setText("" + boardList[9].getGems().size());
-		numOfGems10.setText("" + boardList[10].getGems().size());
-		numOfGems11.setText("" + boardList[11].getGems().size());
+		numOfGems0.setText("" + boardList[0].calculateScore());
+		numOfGems1.setText("" + boardList[1].calculateScore());
+		numOfGems2.setText("" + boardList[2].calculateScore());
+		numOfGems3.setText("" + boardList[3].calculateScore());
+		numOfGems4.setText("" + boardList[4].calculateScore());
+		numOfGems5.setText("" + boardList[5].calculateScore());
+		numOfGems6.setText("" + boardList[6].calculateScore());
+		numOfGems7.setText("" + boardList[7].calculateScore());
+		numOfGems8.setText("" + boardList[8].calculateScore());
+		numOfGems9.setText("" + boardList[9].calculateScore());
+		numOfGems10.setText("" + boardList[10].calculateScore());
+		numOfGems11.setText("" + boardList[11].calculateScore());
 
 	}
 

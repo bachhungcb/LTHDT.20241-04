@@ -223,12 +223,12 @@
             <Button fx:id="rightArrowCell11" layoutX="80.0" layoutY="20.0" mnemonicParsing="false" onAction="#rightDirectionChosen" opacity="0.0" prefHeight="47.0" prefWidth="52.0" text="Button" visible="false" />
          </children>
       </Pane>
-      <Label fx:id="numOfGems0" layoutX="181.0" layoutY="369.0" rotate="270.0" text="1" textFill="#ea9b22">
+      <Label fx:id="numOfGems0" layoutX="181.0" layoutY="369.0" rotate="270.0" text="5" textFill="#ea9b22">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="numOfGems6" layoutX="835.0" layoutY="365.0" rotate="90.0" text="1" textFill="#ea9b22">
+      <Label fx:id="numOfGems6" layoutX="835.0" layoutY="365.0" rotate="90.0" text="5" textFill="#ea9b22">
          <font>
             <Font size="24.0" />
          </font>
