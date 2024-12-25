@@ -56,7 +56,7 @@ public class Player {
 
     // Nhặt sỏi từ ô thỏa mãn điều kiện
     public boolean pickUpGemFrom(Cell cell) {
-        if (cell instanceof Pickable && !cell.isEmpty()) {
+        if (!cell.isEmpty() && ((Pickable) cell).isPickable()) { //cell instanceof Pickable &&
             this.numOfGemsInHand += cell.getNUmberOfGems();
             cell.emptyCell();
             return true;
