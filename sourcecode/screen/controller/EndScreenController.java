@@ -7,7 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.GameBoard;
@@ -16,6 +18,7 @@ import screen.application.ShareData;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -41,19 +44,18 @@ public class EndScreenController implements Initializable {
 
     @FXML
     void btnBackFromEndScreenClicked(ActionEvent event) {
-        try {
-            // TODO while playing: just a pop-up
-
-            final String INTRO_SCREEN_FILE_PATH = "/screen/view/IntroScreen.fxml";
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(INTRO_SCREEN_FILE_PATH));
-            fxmlLoader.setController(new IntroScreenController(board, player1, player2, data));
-            Parent root = fxmlLoader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Intro Screen");
-        } catch (IOException e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Confirmation");
+        alert.setHeaderText("Exit Game");
+        alert.setContentText("Are you sure you want to exit?");
+        Optional<ButtonType> res = alert.showAndWait();
+        if(res.get() == ButtonType.OK) {
+            // quit game
+            Stage stage = (Stage) btnBackFromEndScreen.getScene().getWindow();
+            stage.close();
+        } else {
+            // close dialog
+            alert.close();
         }
     }
 
