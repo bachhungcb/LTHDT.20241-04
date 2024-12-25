@@ -8,24 +8,6 @@ public class Square extends Cell implements Pickable{
         super(position, isUpperRow, numberOfGems);
     }
 
-    // Phương thức thêm sỏi vào bán cầu
-    public void addGem(Gem gem) {
-        gems.add(gem);
-    }
-    
-    //Phương thức xóa 1 viên sỏi khỏi ô vuông nếu có
-	public void removeGem(Gem gem) {
-		gems.remove(gem);
-	}
-
-    public int getGemsCount() {
-        return getNUmberOfGems();
-    }
-
-    public boolean isEmpty() {
-        return gems.isEmpty();
-    }
-
     @Override
     public boolean isPickable() {
         return true;

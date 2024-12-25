@@ -45,15 +45,15 @@ public abstract class Cell {
             this.gems.add(gem);
     }
 
-    public void removeGem(Gem gem) {
-        if (gem != null && this.gems.contains(gem))
-            this.gems.remove(gem);
-    }
+    public int getGemsCount(){
+        return getGems().size();
+    };
 
-    public abstract int getGemsCount();
+    public boolean isEmpty(){
+        return getGems().isEmpty();
+    };
 
-    public abstract boolean isEmpty();
-
+    public abstract String toString();
     // Method to check if it's a half-circle
     public boolean isHalfCircle() {
         if (this.isUpperRow()) {
