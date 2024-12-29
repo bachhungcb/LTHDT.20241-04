@@ -76,7 +76,7 @@ public class Player {
     // Ăn điểm từ ô đã chỉ định
     public void earnGemFrom(Cell cell) {
         if (cell instanceof HalfCircle) {
-            this.score += 5;
+            this.score += cell.getNUmberOfGems();
         } else {
             this.score += cell.getNUmberOfGems();
         }
